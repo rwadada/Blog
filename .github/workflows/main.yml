@@ -14,13 +14,13 @@ jobs:
           distribution: 'adopt'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Buid JS bundle
+      - name: Build wasmJs
         run: |
-          ./gradlew :composeApp:wasmJsRun
+          ./gradlew :composeApp:wasmJsBrowserWebpack
       - name: Deploy 🚀 to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: github-pages # デプロイ用のファイルを配置するブランチ名
-          FOLDER: build/distributions # デプロイ用のファイルが排出されるフォルダ
-          CLEAN: true # Automatically remove deleted files from the deploy branch
+          BRANCH: github-pages
+          FOLDER: composeApp/build/dist/wasmJs/productionExecutable
+          CLEAN: true
