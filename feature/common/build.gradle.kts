@@ -8,7 +8,9 @@ plugins {
 
 kotlin {
     @OptIn(ExperimentalWasmDsl::class)
-    wasmJs()
+    wasmJs {
+        browser()
+    }
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)

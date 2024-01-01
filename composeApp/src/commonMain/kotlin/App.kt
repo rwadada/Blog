@@ -28,6 +28,7 @@ fun App() {
             }) {
                 Text(greetingText)
             }
+            Header()
             AnimatedVisibility(showImage) {
                 Image(
                     painterResource("compose-multiplatform.xml"),
