@@ -1,0 +1,26 @@
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 18
+        uses: actions/setup-java@v1
+        with:
+          java-version: 18
+          distribution: 'adopt'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Buid JS bundle
+        run: |
+          ./gradlew :composeApp:wasmJsRun
+      - name: Deploy 🚀 to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: github-pages # デプロイ用のファイルを配置するブランチ名
+          FOLDER: build/distributions # デプロイ用のファイルが排出されるフォルダ
+          CLEAN: true # Automatically remove deleted files from the deploy branch
