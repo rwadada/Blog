@@ -17,4 +17,4 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
-include(":feature:common")
+include(":feature:common", ":feature:home")

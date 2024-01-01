@@ -1,9 +1,11 @@
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,11 +15,11 @@ fun App() {
     MaterialTheme {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .scrollable(state = rememberLazyGridState(), orientation = Orientation.Vertical)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
         ) {
             Header()
-            Spacer(modifier = Modifier.weight(1f))
+            HomePage()
             Footer()
         }
     }

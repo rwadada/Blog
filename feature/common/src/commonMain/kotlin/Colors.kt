@@ -17,6 +17,9 @@ fun selectedTextColor() = Color(0xFFFF842A)
 fun borderColor() = Color(0xFFCCCCCC)
 
 @Composable
+fun borderAccentColor() = Color(0xFFFF842A)
+
+@Composable
 fun accentTextColor() = Color(0xFFFFFFFF)
 
 @Composable

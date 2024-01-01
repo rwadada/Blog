@@ -10,10 +10,8 @@ plugins {
 kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "composeApp"
-        browser {
+        browser{
             commonWebpackConfig {
-                outputFileName = "composeApp.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
                         // Serve sources to debug inside browser
@@ -24,9 +22,7 @@ kotlin {
                 }
             }
         }
-        binaries.executable()
     }
-
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -37,7 +33,6 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(project(":feature:common"))
-            implementation(project(":feature:home"))
         }
     }
 }
