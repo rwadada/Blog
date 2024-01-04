@@ -121,10 +121,10 @@ private val Home.HomeDestination.displayText: String
 private val Home.HomeDestination.displayIcon: String
     get() = when(this) {
         Home.HomeDestination.HOME -> ""
-        Home.HomeDestination.FACEBOOK -> "facebook.png"
-        Home.HomeDestination.INSTAGRAM -> "instagram.png"
-        Home.HomeDestination.TWITTER -> "twitter.png"
-        Home.HomeDestination.YOUTUBE -> "youtube.png"
-        Home.HomeDestination.GITHUB -> "github.png"
-        Home.HomeDestination.EMAIL -> "email.png"
+        Home.HomeDestination.FACEBOOK -> "facebook.xml"
+        Home.HomeDestination.INSTAGRAM -> "instagram.xml"
+        Home.HomeDestination.TWITTER -> "twitter.xml"
+        Home.HomeDestination.YOUTUBE -> "youtube.xml"
+        Home.HomeDestination.GITHUB -> "github.xml"
+        Home.HomeDestination.EMAIL -> "email.xml"
     }
