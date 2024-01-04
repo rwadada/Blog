@@ -24,7 +24,7 @@ fun HomeHeader() {
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource("header.jpg"),
+            painter = painterResource("images/header.jpg"),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize(),

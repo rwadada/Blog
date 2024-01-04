@@ -19,7 +19,7 @@ fun ComingSoonPage() {
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource("coming_soon.jpg"),
+            painter = painterResource("images/coming_soon.jpg"),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillWidth

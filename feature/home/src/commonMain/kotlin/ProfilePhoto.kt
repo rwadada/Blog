@@ -22,7 +22,7 @@ fun ProfilePhoto(modifier: Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource("profile.jpg"),
+            painter = painterResource("images/profile.jpg"),
             contentDescription = null,
             modifier = Modifier.fillMaxWidth().clip(CircleShape),
             contentScale = ContentScale.FillWidth

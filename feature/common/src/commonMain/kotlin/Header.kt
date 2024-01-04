@@ -37,7 +37,7 @@ fun Header(
         ) {
             Spacer(modifier = Modifier.weight(1f))
             Icon(
-                painter = painterResource("logo.xml"),
+                painter = painterResource("logo/logo.xml"),
                 contentDescription = null,
                 tint = selectableTextColor(),
                 modifier = Modifier
