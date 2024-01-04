@@ -70,7 +70,7 @@ fun Header(
             }
         ) {
             Icon(
-                painter = painterResource("search.xml"),
+                painter = painterResource("logo/search.xml"),
                 contentDescription = null,
                 tint = selectableTextColor()
             )

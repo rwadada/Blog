@@ -4,17 +4,22 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 
 @Composable
 fun App(navigate: (String) -> Unit, currentPath: String) {
     val destination = findDestination(currentPath)
+    val scrollState = rememberScrollState()
+    LaunchedEffect(destination) {
+        scrollState.scrollTo(0)
+    }
 
     MaterialTheme {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(scrollState)
         ) {
             Header(
                 destination = destination,
