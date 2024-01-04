@@ -28,12 +28,12 @@ fun App(navigate: (String) -> Unit, currentPath: String) {
                         navigate(Home(it).path)
                     }
                 )
-                is Tech -> Unit
-                is Travel -> Unit
-                is Books -> Unit
-                is Photo -> Unit
-                is Contact -> Unit
-                is Search -> Unit
+                is Tech -> ComingSoonPage()
+                is Travel -> ComingSoonPage()
+                is Books -> ComingSoonPage()
+                is Photo -> ComingSoonPage()
+                is Contact -> ComingSoonPage()
+                is Search -> ComingSoonPage()
             }
             Footer(
                 destination = destination,

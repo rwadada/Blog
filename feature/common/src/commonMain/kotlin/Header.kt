@@ -18,7 +18,10 @@ import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun Header(destination: Destination, navigate: (Destination) -> Unit) {
+fun Header(
+    destination: Destination,
+    navigate: (Destination) -> Unit
+) {
     Row(
         modifier = Modifier
             .background(backgroundColor())
@@ -53,7 +56,9 @@ fun Header(destination: Destination, navigate: (Destination) -> Unit) {
             )
         })
         IconButton(
-            onClick = {}
+            onClick = {
+                navigate(Search)
+            }
         ) {
             Icon(
                 painter = painterResource("search.xml"),
