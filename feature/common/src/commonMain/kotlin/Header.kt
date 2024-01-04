@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -35,6 +36,14 @@ fun Header(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(modifier = Modifier.weight(1f))
+            Icon(
+                painter = painterResource("logo.xml"),
+                contentDescription = null,
+                tint = selectableTextColor(),
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(end = 8.dp)
+            )
             Text(
                 text = "Ryosuke Wada",
                 color = accentTextColor(),
