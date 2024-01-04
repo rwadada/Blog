@@ -35,7 +35,7 @@ private fun navigateTo(path: String) {
     } else if (path == "") {
         window.location.href = "$baseUrl/#home"
     } else {
-        window.location.href = path
+        window.open(path)
     }
 }
 
