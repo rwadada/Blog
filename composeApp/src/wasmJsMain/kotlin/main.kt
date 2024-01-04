@@ -12,7 +12,6 @@ fun main() {
     CanvasBasedWindow(canvasElementId = "ComposeTarget") {
         var path by remember { mutableStateOf(window.location.hash) }
         window.addEventListener("popstate") {
-            // URLが変更された時の処理をここに記述
             path = window.location.hash
         }
         App(::navigateTo, path)
