@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun Footer() {
+fun Footer(destination: Destination, navigate: (Destination) -> Unit) {
     Row(
         modifier = Modifier
             .background(backgroundColor())
@@ -15,6 +15,20 @@ fun Footer() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        MainMenu(destination = Home(Home.HomeDestination.HOME), onMenuSelected = {})
+        MainMenu(
+            destination = destination,
+            onMenuSelected = {
+                navigate(
+                    when (it) {
+                        Menu.HOME -> Home(Home.HomeDestination.HOME)
+                        Menu.TECH -> Tech
+                        Menu.TRAVEL -> Travel
+                        Menu.BOOKS -> Books
+                        Menu.PHOTO -> Photo
+                        Menu.CONTACT -> Contact
+                    }
+                )
+            }
+        )
     }
 }

@@ -35,7 +35,12 @@ fun App(navigate: (String) -> Unit, currentPath: String) {
                 is Contact -> Unit
                 is Search -> Unit
             }
-            Footer()
+            Footer(
+                destination = destination,
+                navigate = {
+                    navigate(it.path)
+                }
+            )
         }
     }
 }
