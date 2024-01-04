@@ -15,6 +15,6 @@ fun Footer() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        MainMenu(selectedMenu = Menu.HOME, onMenuSelected = {})
+        MainMenu(destination = Home(Home.HomeDestination.HOME), onMenuSelected = {})
     }
 }

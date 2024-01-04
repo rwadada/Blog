@@ -18,7 +18,7 @@ import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun Header() {
+fun Header(destination: Destination, navigate: (Destination) -> Unit) {
     Row(
         modifier = Modifier
             .background(backgroundColor())
@@ -40,7 +40,18 @@ fun Header() {
             )
             Spacer(modifier = Modifier.weight(3f))
         }
-        MainMenu(selectedMenu = Menu.HOME, onMenuSelected = {})
+        MainMenu(destination = destination, onMenuSelected = {
+            navigate(
+                when (it) {
+                    Menu.HOME -> Home(Home.HomeDestination.HOME)
+                    Menu.TECH -> Tech
+                    Menu.TRAVEL -> Travel
+                    Menu.BOOKS -> Books
+                    Menu.PHOTO -> Photo
+                    Menu.CONTACT -> Contact
+                }
+            )
+        })
         IconButton(
             onClick = {}
         ) {

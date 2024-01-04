@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,7 +26,7 @@ import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun HomePage() {
+fun HomePage(navigate: (Home.HomeDestination) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -62,11 +63,13 @@ fun HomePage() {
             Column(
                 modifier = Modifier.weight(1f),
             ) {
-                Text(
-                    text = "RECENT POSTS",
-                    fontWeight = FontWeight.Bold,
-                    color = textColor()
-                )
+                SelectionContainer {
+                    Text(
+                        text = "RECENT POSTS",
+                        fontWeight = FontWeight.Bold,
+                        color = textColor()
+                    )
+                }
                 Row(Modifier.fillMaxWidth()) {
                     Box(
                         modifier = Modifier
@@ -82,17 +85,19 @@ fun HomePage() {
                     )
                 }
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .padding(8.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "No items",
-                        color = textColor()
-                    )
+                for (i in 0..4) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .padding(8.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "No items",
+                            color = textColor()
+                        )
+                    }
                 }
             }
             Column(
