@@ -1,4 +1,5 @@
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,21 +18,15 @@ import org.jetbrains.compose.resources.painterResource
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun ProfilePhoto(modifier: Modifier) {
-    Column(
+    Box(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painterResource("images/profile.jpg"),
             contentDescription = null,
             modifier = Modifier.fillMaxWidth().clip(CircleShape),
             contentScale = ContentScale.FillWidth
-        )
-        Text(
-            text = "Photo by Taisuke Nakamura",
-            fontSize = 8.sp,
-            color = textColor(),
-            modifier = Modifier.padding(top = 4.dp)
         )
     }
 }
