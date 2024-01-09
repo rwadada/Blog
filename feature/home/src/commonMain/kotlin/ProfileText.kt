@@ -15,7 +15,7 @@ fun ProfileText(modifier: Modifier) {
             color = textColor()
         )
         Text(
-            text = "Hi there! I'm an Android engineer.",
+            text = "I'm an Android engineer.",
             color = textColor()
         )
         Text(
