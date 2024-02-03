@@ -33,7 +33,7 @@ fun App(navigate: (String) -> Unit, currentPath: String) {
                         navigate(Home(it).path)
                     }
                 )
-                is Tech -> ComingSoonPage()
+                is Tech -> TechPage()
                 is Travel -> ComingSoonPage()
                 is Books -> ComingSoonPage()
                 is Photo -> ComingSoonPage()
