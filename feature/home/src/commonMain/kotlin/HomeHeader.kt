@@ -32,7 +32,7 @@ fun HomeHeader() {
         )
 
         Text(
-            text = "Pages, Places, and Programming: Exploring the World through Books, Nature, and Android",
+            text = "Exploring the World through Books, Nature, and Android",
             color = accentTextColor(),
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp
