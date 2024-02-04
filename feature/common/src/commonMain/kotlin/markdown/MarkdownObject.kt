@@ -22,19 +22,16 @@ sealed interface MarkdownObject {
 
     data class InlineCode(val code: String) : MarkdownObject
 
-    data class CodeBlock(val code: String) : MarkdownObject
+    data class CodeBlock(val code: String, val language: String) : MarkdownObject
 
     data class Link(val text: String, val url: String) : MarkdownObject
 
     data class Quote(val text: String) : MarkdownObject
 
     data class Image(
-        val url: String,
+        val path: String,
         val alt: String,
-        val width: Int? = null,
-        val height: Int? = null
-    ) :
-        MarkdownObject
+    ) : MarkdownObject
 
     data class Table(
         val headers: List<String>,
@@ -49,8 +46,5 @@ sealed interface MarkdownObject {
 
     data object HorizontalBorder : MarkdownObject
 
-    data class Note(
-        val title: String,
-        val text: String
-    ) : MarkdownObject
+    data class Comment(val text: String) : MarkdownObject
 }

@@ -24,3 +24,6 @@ fun accentTextColor() = Color(0xFFFFFFFF)
 
 @Composable
 fun contentBackgroundColor() = Color(0xFFFFFFFF)
+
+@Composable
+fun codeBlockBackgroundColor() = Color(0xFF17181A)
