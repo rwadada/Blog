@@ -20,7 +20,7 @@ fun TechPage() {
     val parseMarkDownStringUseCase = ParseMarkDownStringUseCase()
     var fileContent: List<MarkdownObject> by remember { mutableStateOf(emptyList()) }
     LaunchedEffect(Unit) {
-        fileContent = parseMarkDownStringUseCase(readFileUseCase("article/tech/Sample.md"))
+        fileContent = parseMarkDownStringUseCase(readFileUseCase("article/tech/AboutKotlinWasm.md"))
     }
     Row(
         modifier = Modifier.fillMaxWidth(),
