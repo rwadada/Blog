@@ -1,12 +1,12 @@
 # About Kotlin/Wasm and the technology of this blog
 ## What is Kotlin/Wasm?
-It is one of the targets provided in Kotlin Multiplatform. Previously, when building web applications with Kotlin Multiplatform, Kotlin/JS was the only choice. However, a new alternative has been developed called Kotlin/Wasm.
+Kotlin/Wasm is one of the targets provided in Kotlin Multiplatform. Previously, when building web applications with Kotlin Multiplatform, Kotlin/JS was the only choice. However, a new alternative has been developed called Kotlin/Wasm.
 
 Despite being in the early stages of development, Kotlin/Wasm has shown superior performance compared to Kotlin/JS. This is evident in its usage in Compose for Web, where Kotlin/Wasm has been employed. With the alpha version released at the end of last year, it is anticipated that this technology will gain increasing attention in the future.
 
 ![wasm performance](images/wasm-performance-compose.png)
 
-Currently, it is in a state where it operates on Firefox and Chrome.
+Currently, it is in a state where it operates on **Firefox** and **Chrome**.
 
 ## Browser API support
 Since Kotlin/Wasm provides DOM manipulation and fetch processing from WebAPIs in Kotlin as standard, it allows for the implementation of these processes without the need for new definitions specific to Kotlin. Furthermore, these functionalities utilize interoperability features with JavaScript, enabling the definition of custom functionalities and the invocation of Kotlin from JavaScript.
@@ -39,7 +39,7 @@ plugins {
 }
 ```
 
-In the project's build.gradle file, very few settings are required. Since we are not running an Android project simultaneously, the configuration is specialized for Compose for Web.
+In the project's `build.gradle.kts` file, very few settings are required. Since we are not running an Android project simultaneously, the configuration is specialized for Compose for Web.
 Here, we load the plugins for Compose and multiplatform usage.
 
 #### app/build.gradle.kts
@@ -120,11 +120,11 @@ fun App() {
     }
 }
 ```
-The index.html serves as the foundation for rendering the application created with Compose for Web. As a rule, it's necessary to load skiko.js, which is utilized for rendering.
-The composeApp.js specifies the output defined in app/build.gradle.kts. By loading this, it enables the functions defined in Kotlin to be accessible from the web. The canvasid within the body tag must match the definition of the app mentioned later, as it determines the content to be rendered based on this ID.
-The app.kt in wasmJsMain is responsible for associating the content to be rendered with HTML in Compose for Web. The canvasElementId in the CanvasBasedWindow function must be specified with the canvasid defined in index.html.
+The `index.html` serves as the foundation for rendering the application created with Compose for Web. As a rule, it's necessary to load `skiko.js`, which is utilized for rendering.
+The `composeApp.js` specifies the output defined in `app/build.gradle.kts`. By loading this, it enables the functions defined in Kotlin to be accessible from the web. The canvasid within the body tag must match the definition of the app mentioned later, as it determines the content to be rendered based on this ID.
+The `app.kt` in wasmJsMain is responsible for associating the content to be rendered with HTML in Compose for Web. The canvasElementId in the CanvasBasedWindow function must be specified with the canvasid defined in `index.html`.
 
-The App.kt in commonMain serves as the core of the application. While in this case, we're focusing solely on Compose for Web, by loading this App.kt on each platform, it enables multiplatform support.
+The `App.kt` in commonMain serves as the core of the application. While in this case, we're focusing solely on Compose for Web, by loading this App.kt on each platform, it enables multiplatform support.
 
 With this setup, the basic structure can be implemented.
 
@@ -171,11 +171,10 @@ The W3C's fetch returns values in the form of Promises. By using the await funct
 ## Several things can be easily achieved for Android engineers precisely because of Kotlin.
 
 TBD
+[COMPOSABLE_CONTENT]
 
 ## Afterword
 - Compose for Web is fundamentally designed with multiplatform in mind. Therefore, it's assumed that development will likely occur simultaneously with Android. However, in Compose for Web, you cannot preview the UI directly, and to preview it, you need to set up an Android project.
 - Still in its alpha release, there are many unstable aspects. For example, even for screen navigation, you need to take a workaround approach, indicating that it hasn't established itself as a mature technology yet.
 - I also attempted tasks like video rendering, but it required effectively combining web-specific mechanisms. It's not entirely friendly for Android engineers, as they may feel stressed about not being able to utilize the powerful libraries they were accustomed to using in Android.
 However, it was undoubtedly an accessible technology for me as an Android engineer. I do have a sense that when it stabilizes, there might be instances where it's introduced in real products. So, I'm looking forward to the future growth of this technology.
-
-
