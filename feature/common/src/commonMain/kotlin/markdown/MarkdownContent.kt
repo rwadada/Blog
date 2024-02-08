@@ -27,7 +27,7 @@ fun MarkdownContent(content: List<MarkdownObject>, modifier: Modifier = Modifier
                 is MarkdownObject.Image -> MarkdownImage(item = it)
                 is MarkdownObject.HorizontalBorder -> MarkdownHorizontalBorder()
                 is MarkdownObject.Comment -> Unit
-                is MarkdownObject.Text -> Text(text = it.text, color = textColor())
+                is MarkdownObject.Text -> MarkdownText(item = it)
                 is MarkdownObject.Table -> Unit
                 is MarkdownObject.Quote -> Unit
                 is MarkdownObject.BreakLine -> Spacer(modifier = Modifier.height(20.dp))
