@@ -106,6 +106,8 @@ class ParseMarkDownStringUseCase {
 
                     it.isEmpty() -> markdownObjects.add(MarkdownObject.BreakLine)
 
+                    it == "[COMPOSABLE_CONTENT]" -> markdownObjects.add(MarkdownObject.ComposableContent)
+
                     else -> markdownObjects.add(MarkdownObject.Text(it))
                 }
             }

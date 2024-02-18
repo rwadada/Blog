@@ -47,4 +47,6 @@ sealed interface MarkdownObject {
     data object HorizontalBorder : MarkdownObject
 
     data class Comment(val text: String) : MarkdownObject
+
+    data object ComposableContent : MarkdownObject
 }

@@ -170,7 +170,7 @@ The W3C's fetch returns values in the form of Promises. By using the await funct
 
 ## Several things can be easily achieved for Android engineers precisely because of Kotlin.
 
-TBD
+Personally, I believe one of the significant benefits of Jetpack Compose is its ability to easily implement animations. Being less familiar with web technologies myself, I can't fully gauge the difficulty of achieving animations on the web, but as an Android engineer, one would likely find it easy to implement such animations.
 [COMPOSABLE_CONTENT]
 
 ## Afterword

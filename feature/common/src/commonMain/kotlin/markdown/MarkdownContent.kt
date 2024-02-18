@@ -3,14 +3,17 @@ package markdown
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import textColor
 
 @Composable
-fun MarkdownContent(content: List<MarkdownObject>, modifier: Modifier = Modifier) {
+fun MarkdownContent(
+    content: List<MarkdownObject>,
+    modifier: Modifier = Modifier,
+    vararg composableItem: @Composable () -> Unit = emptyArray()
+) {
+    var composableItemIndex = 0
     Column(
         modifier = modifier
     ) {
@@ -31,6 +34,10 @@ fun MarkdownContent(content: List<MarkdownObject>, modifier: Modifier = Modifier
                 is MarkdownObject.Table -> Unit
                 is MarkdownObject.Quote -> Unit
                 is MarkdownObject.BreakLine -> Spacer(modifier = Modifier.height(20.dp))
+                is MarkdownObject.ComposableContent -> {
+                    composableItem[composableItemIndex]()
+                    composableItemIndex++
+                }
             }
         }
     }
