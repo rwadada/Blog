@@ -3,20 +3,24 @@ package markdown
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun MarkdownContent(
+    date: String,
     content: List<MarkdownObject>,
     modifier: Modifier = Modifier,
-    vararg composableItem: @Composable () -> Unit = emptyArray()
+    composableItem: List<@Composable () -> Unit> = emptyList()
 ) {
     var composableItemIndex = 0
     Column(
         modifier = modifier
     ) {
+        Text(date, modifier = Modifier.padding(horizontal = 16.dp))
         content.forEach {
             when (it) {
                 is MarkdownObject.Header -> MarkdownHeader(header = it)
