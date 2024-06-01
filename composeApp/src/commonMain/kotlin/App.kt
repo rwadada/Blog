@@ -29,8 +29,11 @@ fun App(navigate: (String) -> Unit, currentPath: String) {
             )
             when (destination) {
                 is Home -> HomePage(
-                    navigate = {
+                    navigateSocialLink = {
                         navigate(Home(it).path)
+                    },
+                    navigateBlogItem = {
+                        navigate(it.getDestinationPath())
                     }
                 )
 

@@ -10,7 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HomePage(navigate: (Home.HomeDestination) -> Unit) {
+fun HomePage(
+    navigateSocialLink: (Home.HomeDestination) -> Unit,
+    navigateBlogItem: (BlogItem) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -23,7 +26,10 @@ fun HomePage(navigate: (Home.HomeDestination) -> Unit) {
                 .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            RecentPostsContent(modifier = Modifier.weight(1f))
+            RecentPostsContent(
+                modifier = Modifier.weight(1f),
+                navigateBlogItem = navigateBlogItem
+            )
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -35,7 +41,7 @@ fun HomePage(navigate: (Home.HomeDestination) -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp),
-                    navigate = navigate
+                    navigate = navigateSocialLink
                 )
             }
         }
