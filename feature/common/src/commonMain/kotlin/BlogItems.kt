@@ -8,6 +8,7 @@ data class BlogItem(
     val title: String,
     val date: String,
     val type: Type,
+    val summary: String = "",
     val composableItems: List<@Composable () -> Unit>
 ) {
     enum class Type {
