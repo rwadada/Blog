@@ -26,26 +26,26 @@ class Home(homeDestination: HomeDestination) : Destination {
     }
 }
 
-object Tech : Destination {
+data object Tech : Destination {
     override val path: String = "#/tech"
 }
 
-object Travel : Destination {
+data object Travel : Destination {
     override val path: String = "#/travel"
 }
 
-object Books : Destination {
+data object Books : Destination {
     override val path: String = "#/books"
 }
 
-object Photo : Destination {
+data object Photo : Destination {
     override val path: String = "#/photo"
 }
 
-object Contact : Destination {
+data object Contact : Destination {
     override val path: String = "#/contact"
 }
 
-object Search : Destination {
+data object Search : Destination {
     override val path: String = "#/search"
 }

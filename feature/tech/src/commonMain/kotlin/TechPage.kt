@@ -15,11 +15,12 @@ import usecase.ReadFileUseCase
 
 
 @Composable
-fun TechPage(index: Int) {
+fun TechPage(index: Int?) {
     val readFileUseCase = ReadFileUseCase()
     val parseMarkDownStringUseCase = ParseMarkDownStringUseCase()
     var fileContent: List<MarkdownObject> by remember { mutableStateOf(emptyList()) }
-    val item = blogItems.filter { it.type == BlogItem.Type.TECH }[index]
+    val techBlogItems = blogItems.filter { it.type == BlogItem.Type.TECH }
+    val item = techBlogItems[index ?: techBlogItems.lastIndex]
     LaunchedEffect(Unit) {
         fileContent = parseMarkDownStringUseCase(readFileUseCase(item.path))
     }

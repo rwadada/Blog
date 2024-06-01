@@ -31,5 +31,19 @@ val blogItems = listOf(
                 LoadingDots()
             }
         }
-    )
+    ),
+    BlogItem(
+        path = "article/tech/Sample.md",
+        title = "Sample",
+        date = "2024-02-30",
+        type = BlogItem.Type.TECH,
+        composableItems = listOf {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                LoadingDots()
+            }
+        }
+    ),
 )

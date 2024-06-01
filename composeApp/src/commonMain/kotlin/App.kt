@@ -34,7 +34,7 @@ fun App(navigate: (String) -> Unit, currentPath: String) {
                     }
                 )
 
-                is Tech -> TechPage(0)
+                is Tech -> TechPage(getBlogIndex(currentPath))
                 is Travel -> ComingSoonPage()
                 is Books -> ComingSoonPage()
                 is Photo -> ComingSoonPage()
@@ -49,4 +49,10 @@ fun App(navigate: (String) -> Unit, currentPath: String) {
             )
         }
     }
+}
+
+private fun getBlogIndex(path: String) = try {
+    path.split("/").last().toInt()
+} catch (e: Exception) {
+    null
 }
