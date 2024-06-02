@@ -38,6 +38,7 @@ val blogItems = listOf(
         title = "About Kotlin Wasm",
         date = "2024-02-19",
         type = BlogItem.Type.TECH,
+        summary = "Kotlin/Wasm, a new alternative to Kotlin/JS, shows promising performance for web applications using Kotlin Multiplatform. With its integration in Compose for Web, developers can build web UIs similarly to Android UIs using SKIA for rendering. Despite being in alpha, it offers easy setup for Kotlin-based web projects, though some features, like screen navigation, require workarounds.",
         composableItems = listOf {
             Box(
                 modifier = Modifier
