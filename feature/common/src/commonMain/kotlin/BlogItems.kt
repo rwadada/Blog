@@ -9,7 +9,7 @@ data class BlogItem(
     val date: String,
     val type: Type,
     val summary: String = "",
-    val composableItems: List<@Composable () -> Unit>
+    val composableItems: List<@Composable () -> Unit> = emptyList()
 ) {
     enum class Type {
         TECH,
@@ -19,20 +19,6 @@ data class BlogItem(
 }
 
 val blogItems = listOf(
-    BlogItem(
-        path = "article/tech/Sample.md",
-        title = "Sample",
-        date = "2024-02-30",
-        type = BlogItem.Type.TECH,
-        composableItems = listOf {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                LoadingDots()
-            }
-        }
-    ),
     BlogItem(
         path = "article/tech/AboutKotlinWasm.md",
         title = "About Kotlin Wasm",
@@ -48,6 +34,13 @@ val blogItems = listOf(
             }
         }
     ),
+    BlogItem(
+        path = "article/tech/QualityInSoftwareDevelopment-MyValuesAndApproach.md",
+        title = "Quality in Software Development: My Values and Approach",
+        date = "2024-06-02",
+        type = BlogItem.Type.TECH,
+        summary = "Software quality involves both external factors like reliability and usability, and internal factors such as code readability and reduced complexity. Improving quality through refactoring and adopting new technologies is effective, but it's essential to define clear goals and ensure team cohesion."
+    )
 )
 
 fun BlogItem.getDestinationPath(): String {
