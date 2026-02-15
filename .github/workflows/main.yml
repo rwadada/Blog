@@ -6,21 +6,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 18
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
-          java-version: 18
-          distribution: 'adopt'
+          java-version: 21
+          distribution: 'temurin'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build wasmJs
         run: |
-          ./gradlew :composeApp:wasmJsBrowserWebpack
+          ./gradlew :composeApp:wasmJsBrowserProductionWebpack
       - name: Deploy 🚀 to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: github-pages
-          FOLDER: composeApp/build/dist/wasmJs/productionExecutable
-          CLEAN: true
+          branch: github-pages # The branch the action should deploy to.
+          folder: composeApp/build/dist/wasmJs/productionExecutable
+          clean: true
