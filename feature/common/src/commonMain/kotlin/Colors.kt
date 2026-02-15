@@ -27,3 +27,6 @@ fun contentBackgroundColor() = Color(0xFFFFFFFF)
 
 @Composable
 fun codeBlockBackgroundColor() = Color(0xFF17181A)
+
+@Composable
+fun secondaryTextColor() = Color(0xFFCCCCCC)

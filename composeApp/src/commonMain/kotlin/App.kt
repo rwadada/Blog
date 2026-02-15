@@ -37,7 +37,10 @@ fun App(navigate: (String) -> Unit, currentPath: String) {
                     }
                 )
 
-                is Tech -> TechPage(getBlogIndex(currentPath))
+                is Tech -> TechPage(
+                    index = getBlogIndex(currentPath),
+                    navigate = navigate
+                )
                 is Travel -> ComingSoonPage()
                 is Books -> ComingSoonPage()
                 is Photo -> ComingSoonPage()

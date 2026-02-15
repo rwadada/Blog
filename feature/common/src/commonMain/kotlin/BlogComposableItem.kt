@@ -55,8 +55,8 @@ fun LoadingDots() {
         animationSpec = infiniteRepeatable(
             animation = keyframes {
                 durationMillis = 300 * 4
-                Color(0xFF333333) at delay with LinearEasing
-                Color(0xFFFF842A) at delay + 300 with LinearEasing
+                Color(0xFF333333) at delay using LinearEasing
+                Color(0xFFFF842A) at delay + 300 using LinearEasing
                 Color(0xFF333333) at delay + 300 * 2
             }
         )
