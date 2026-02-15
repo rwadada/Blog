@@ -13,6 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import blog.feature.home.generated.resources.Res
+import blog.feature.home.generated.resources.header
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -24,7 +26,7 @@ fun HomeHeader() {
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource("images/header.jpg"),
+            painter = painterResource(Res.drawable.header),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize(),

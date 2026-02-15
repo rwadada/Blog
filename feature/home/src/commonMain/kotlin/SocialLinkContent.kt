@@ -13,8 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import blog.feature.home.generated.resources.Res
+import blog.feature.home.generated.resources.facebook
+import blog.feature.home.generated.resources.instagram
+import blog.feature.home.generated.resources.twitter
+import blog.feature.home.generated.resources.youtube
+import blog.feature.home.generated.resources.github
+import blog.feature.home.generated.resources.email
 
 @Composable
 fun SocialLinkContent(
@@ -93,12 +101,15 @@ private fun SocialLinkButton(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Image(
-            painter = painterResource(destination.displayIcon),
-            contentDescription = null,
-            modifier = Modifier
-                .size(24.dp)
-        )
+        val icon = destination.displayIcon
+        if (icon != null) {
+            Image(
+                painter = painterResource(icon),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(24.dp)
+            )
+        }
         Text(
             text = destination.displayText,
             color = textColor(),
@@ -118,13 +129,14 @@ private val Home.HomeDestination.displayText: String
         Home.HomeDestination.EMAIL -> "EMAIL"
     }
 
-private val Home.HomeDestination.displayIcon: String
+@OptIn(ExperimentalResourceApi::class)
+private val Home.HomeDestination.displayIcon: DrawableResource?
     get() = when(this) {
-        Home.HomeDestination.HOME -> ""
-        Home.HomeDestination.FACEBOOK -> "logo/facebook.xml"
-        Home.HomeDestination.INSTAGRAM -> "logo/instagram.xml"
-        Home.HomeDestination.TWITTER -> "logo/twitter.xml"
-        Home.HomeDestination.YOUTUBE -> "logo/youtube.xml"
-        Home.HomeDestination.GITHUB -> "logo/github.xml"
-        Home.HomeDestination.EMAIL -> "logo/email.xml"
+        Home.HomeDestination.HOME -> null
+        Home.HomeDestination.FACEBOOK -> Res.drawable.facebook
+        Home.HomeDestination.INSTAGRAM -> Res.drawable.instagram
+        Home.HomeDestination.TWITTER -> Res.drawable.twitter
+        Home.HomeDestination.YOUTUBE -> Res.drawable.youtube
+        Home.HomeDestination.GITHUB -> Res.drawable.github
+        Home.HomeDestination.EMAIL -> Res.drawable.email
     }

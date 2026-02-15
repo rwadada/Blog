@@ -1,15 +1,7 @@
 import androidx.compose.animation.animateColor
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.keyframes
-import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,8 +37,8 @@ fun LoadingDots() {
         animationSpec = infiniteRepeatable(
             animation = keyframes {
                 durationMillis = 300 * 4
-                0f at delay with LinearEasing
-                1f at delay + 300 with LinearEasing
+                0f at delay using LinearEasing
+                1f at delay + 300 using LinearEasing
                 0f at delay + 300 * 2
             }
         )

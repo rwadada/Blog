@@ -16,6 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import blog.feature.common.generated.resources.Res
+import blog.feature.common.generated.resources.logo
+import blog.feature.common.generated.resources.search
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -37,7 +40,7 @@ fun Header(
         ) {
             Spacer(modifier = Modifier.weight(1f))
             Icon(
-                painter = painterResource("logo/logo.xml"),
+                painter = painterResource(Res.drawable.logo),
                 contentDescription = null,
                 tint = selectableTextColor(),
                 modifier = Modifier
@@ -70,7 +73,7 @@ fun Header(
             }
         ) {
             Icon(
-                painter = painterResource("logo/search.xml"),
+                painter = painterResource(Res.drawable.search),
                 contentDescription = null,
                 tint = selectableTextColor()
             )

@@ -10,6 +10,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import blog.feature.common.generated.resources.Res
+import blog.feature.common.generated.resources.coming_soon
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -19,7 +21,7 @@ fun ComingSoonPage() {
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource("images/coming_soon.jpg"),
+            painter = painterResource(Res.drawable.coming_soon),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillWidth
