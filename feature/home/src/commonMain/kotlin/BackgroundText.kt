@@ -33,7 +33,7 @@ fun BackgroundText(modifier: Modifier) {
         Text(
             text = "Background",
             fontWeight = FontWeight.Bold,
-            color = textColor()
+            color = accentTextColor()
         )
         backgrounds.forEach { background ->
             Row(
@@ -42,11 +42,11 @@ fun BackgroundText(modifier: Modifier) {
             ) {
                 Text(
                     text = background.year,
-                    color = textColor()
+                    color = accentTextColor()
                 )
                 Text(
                     text = background.description,
-                    color = textColor(),
+                    color = secondaryTextColor(),
                     modifier = Modifier.weight(1f)
                 )
             }

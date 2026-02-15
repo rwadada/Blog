@@ -34,6 +34,9 @@ fun App(navigate: (String) -> Unit, currentPath: String) {
                     },
                     navigateBlogItem = {
                         navigate(it.getDestinationPath())
+                    },
+                    onUrlClick = {
+                        navigate(it)
                     }
                 )
 

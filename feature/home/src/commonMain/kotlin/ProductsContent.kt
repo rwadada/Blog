@@ -1,17 +1,11 @@
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,34 +16,42 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun RecentPostsContent(
+fun ProductsContent(
     modifier: Modifier = Modifier,
-    navigateBlogItem: (BlogItem) -> Unit
+    onUrlClick: (String) -> Unit
 ) {
     Column(
         modifier = modifier.padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "RECENT POSTS",
+            text = "PRODUCTS",
             fontWeight = FontWeight.ExtraBold,
             fontSize = 24.sp,
-            color = accentTextColor(), // Reverted to white for Dark Background
+            color = accentTextColor(),
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        
-        blogItems.reversed().take(3).forEach {
-            BlogItemSummary(it, navigateBlogItem)
-        }
+
+        ProductItem(
+            name = "Flow",
+            description = "A productivity tool that helps you stay focused and manage your tasks efficiently.",
+            url = "https://flow.rwadada.com/",
+            onClick = onUrlClick
+        )
     }
 }
 
 @Composable
-fun BlogItemSummary(blogItem: BlogItem, onClickItem: (BlogItem) -> Unit) {
+private fun ProductItem(
+    name: String,
+    description: String,
+    url: String,
+    onClick: (String) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClickItem(blogItem) },
+            .clickable { onClick(url) },
         elevation = 4.dp,
         shape = RoundedCornerShape(16.dp),
         backgroundColor = surfaceColor()
@@ -58,24 +60,24 @@ fun BlogItemSummary(blogItem: BlogItem, onClickItem: (BlogItem) -> Unit) {
             modifier = Modifier.padding(24.dp)
         ) {
             Text(
-                text = blogItem.title,
-                fontSize = 20.sp,
+                text = name,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 color = selectedTextColor()
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = blogItem.date,
-                fontSize = 14.sp,
-                color = secondaryTextColor()
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                text = blogItem.summary,
+                text = description,
                 fontSize = 16.sp,
-                color = secondaryTextColor(), // Changed from textColor()
-                lineHeight = 24.sp,
-                maxLines = 3
+                color = secondaryTextColor(),
+                lineHeight = 24.sp
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Visit Website ->",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                color = borderAccentColor()
             )
         }
     }

@@ -12,15 +12,15 @@ fun ProfileText(modifier: Modifier) {
         Text(
             text = "Ryosuke Wada",
             fontWeight = FontWeight.Bold,
-            color = textColor()
+            color = accentTextColor()
         )
         Text(
             text = "I'm an Android engineer.",
-            color = textColor()
+            color = accentTextColor()
         )
         Text(
             text = "I created this website as a space to gather and document my experiences. It's a platform where I share travel logs, book reviews, and delve into Android development techniques. If you're interested, please feel free to explore and discover more.",
-            color = textColor()
+            color = secondaryTextColor()
         )
     }
 }

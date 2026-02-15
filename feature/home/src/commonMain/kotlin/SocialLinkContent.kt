@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.ColorFilter
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -33,7 +34,7 @@ fun SocialLinkContent(
         Text(
             text = "SOCIAL",
             fontWeight = FontWeight.Bold,
-            color = textColor()
+            color = accentTextColor()
         )
         TitleLine()
         Row(
@@ -103,16 +104,23 @@ private fun SocialLinkButton(
     ) {
         val icon = destination.displayIcon
         if (icon != null) {
+            val colorFilter = when (destination) {
+                Home.HomeDestination.TWITTER,
+                Home.HomeDestination.GITHUB,
+                Home.HomeDestination.EMAIL -> ColorFilter.tint(accentTextColor())
+                else -> null
+            }
             Image(
                 painter = painterResource(icon),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(24.dp)
+                    .size(24.dp),
+                colorFilter = colorFilter
             )
         }
         Text(
             text = destination.displayText,
-            color = textColor(),
+            color = accentTextColor(),
             fontWeight = FontWeight.Bold
         )
     }

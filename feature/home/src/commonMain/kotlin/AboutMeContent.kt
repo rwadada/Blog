@@ -19,7 +19,7 @@ fun AboutMeContent(modifier: Modifier) {
         Text(
             text = "ABOUT ME",
             fontWeight = FontWeight.Bold,
-            color = textColor()
+            color = accentTextColor()
         )
         TitleLine()
         Row(Modifier.fillMaxWidth()) {
