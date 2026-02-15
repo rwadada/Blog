@@ -38,14 +38,13 @@ fun Header(
             modifier = Modifier.weight(1f),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Spacer(modifier = Modifier.weight(1f))
             Icon(
                 painter = painterResource(Res.drawable.logo),
                 contentDescription = null,
-                tint = selectableTextColor(),
                 modifier = Modifier
                     .size(40.dp)
-                    .padding(end = 8.dp)
+                    .padding(end = 8.dp),
+                tint = selectableTextColor()
             )
             Text(
                 text = "Ryosuke Wada",

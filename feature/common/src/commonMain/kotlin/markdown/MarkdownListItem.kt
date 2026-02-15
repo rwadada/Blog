@@ -14,7 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import textColor
+import accentTextColor
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun MarkdownListItem(item: MarkdownObject.ListItem) {
@@ -30,23 +31,42 @@ fun MarkdownListItem(item: MarkdownObject.ListItem) {
 
 @Composable
 private fun DotListItem(item: MarkdownObject.ListItem.DotList) {
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         val space = 8 * item.level
         Spacer(modifier = Modifier.width(space.dp))
-        Text("•  ", color = textColor())
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(text = item.text, color = textColor())
+        Text(
+            text = "•  ",
+            color = accentTextColor(),
+            fontSize = 16.sp,
+            lineHeight = 24.sp
+        )
+        Text(
+            text = item.text,
+            color = accentTextColor(),
+            fontSize = 16.sp,
+            lineHeight = 24.sp
+        )
     }
 }
 
 @Composable
 private fun OrderListItem(item: MarkdownObject.ListItem.OrderedList) {
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         val space = 8 * item.level
         Spacer(modifier = Modifier.width(space.dp))
         val index = item.text.take(3)
         val text = item.text.drop(3)
-        Text(text = index, color = textColor())
-        Text(text = text, color = textColor())
+        Text(
+            text = index,
+            color = accentTextColor(),
+            fontSize = 16.sp,
+            lineHeight = 24.sp
+        )
+        Text(
+            text = text,
+            color = accentTextColor(),
+            fontSize = 16.sp,
+            lineHeight = 24.sp
+        )
     }
 }

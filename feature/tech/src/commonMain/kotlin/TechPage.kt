@@ -1,3 +1,5 @@
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,9 +44,14 @@ fun TechPage(
 
 @Composable
 private fun TechList(navigate: (String) -> Unit) {
-    val techBlogItems = blogItems.filter { it.type == BlogItem.Type.TECH }
+    // Show Newest First (Reverse of the chronological list)
+    val techBlogItems = blogItems.filter { it.type == BlogItem.Type.TECH }.reversed()
+    
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 24.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(backgroundColor()) // Dark Background
+            .padding(horizontal = 16.dp, vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -73,7 +80,7 @@ private fun TechListItem(item: BlogItem, onClick: () -> Unit) {
             .clickable(onClick = onClick),
         elevation = 4.dp,
         shape = RoundedCornerShape(12.dp),
-        backgroundColor = contentBackgroundColor()
+        backgroundColor = surfaceColor() // Dark Surface
     ) {
         Column(
             modifier = Modifier.padding(24.dp)
@@ -90,14 +97,14 @@ private fun TechListItem(item: BlogItem, onClick: () -> Unit) {
             Text(
                 text = item.date,
                 fontSize = 14.sp,
-                color = androidx.compose.ui.graphics.Color.Gray 
+                color = secondaryTextColor() // Light Grey
             )
             if (item.summary.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = item.summary,
                     fontSize = 16.sp,
-                    color = textColor(),
+                    color = secondaryTextColor(), // Light Grey
                     lineHeight = 24.sp,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
@@ -112,6 +119,7 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
     val readFileUseCase = ReadFileUseCase()
     val parseMarkDownStringUseCase = ParseMarkDownStringUseCase()
     var fileContent: List<MarkdownObject> by remember { mutableStateOf(emptyList()) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
     val techBlogItems = blogItems.filter { it.type == BlogItem.Type.TECH }
     
     val safeIndex = if (index in techBlogItems.indices) index else if (techBlogItems.isNotEmpty()) 0 else null
@@ -122,76 +130,105 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
         return
     }
 
-    LaunchedEffect(item) {
-        fileContent = parseMarkDownStringUseCase(readFileUseCase(item.path))
-    }
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Spacer(modifier = Modifier.weight(1f))
-        Column(modifier = Modifier.weight(4f)) {
-            MarkdownContent(
-                date = item.date,
-                content = fileContent,
-                modifier = Modifier.fillMaxWidth(),
-                composableItem = item.composableItems
-            )
-            
-            // Navigation Buttons
-            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp)) {
-                
-                 val newerIndex = safeIndex - 1
-                 val olderIndex = safeIndex + 1
-                 
-                 Row(
-                     modifier = Modifier.fillMaxWidth(),
-                     horizontalArrangement = Arrangement.SpaceBetween
-                 ) {
-                     // Previous (Older)
-                     if (olderIndex in techBlogItems.indices) {
-                         val prevItem = techBlogItems[olderIndex]
-                         NavigationButton(
-                             label = "Previous",
-                             title = prevItem.title,
-                             onClick = { navigate(prevItem.getDestinationPath()) },
-                             isPrevious = true,
-                             modifier = Modifier.weight(1f).padding(end = 8.dp)
-                         )
-                     } else {
-                         Spacer(Modifier.weight(1f).padding(end = 8.dp))
-                     }
-
-                     // Next (Newer)
-                     if (newerIndex in techBlogItems.indices) {
-                         val nextItem = techBlogItems[newerIndex]
-                         NavigationButton(
-                             label = "Next",
-                             title = nextItem.title,
-                             onClick = { navigate(nextItem.getDestinationPath()) },
-                             isPrevious = false,
-                             modifier = Modifier.weight(1f).padding(start = 8.dp)
-                         )
-                     } else {
-                         Spacer(Modifier.weight(1f).padding(start = 8.dp))
-                     }
-                 }
-                 
-                 Spacer(modifier = Modifier.height(32.dp))
-                 
-                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                     Text(
-                         text = "Back to List",
-                         modifier = Modifier
-                             .clickable { navigate(Tech.path) }
-                             .padding(16.dp),
-                         color = accentTextColor(),
-                         fontWeight = FontWeight.Bold,
-                         fontSize = 16.sp
-                     )
-                 }
-            }
+    LaunchedEffect(item.path) {
+        // Clear content when path changes to prevent stale content/composable mismatch
+        fileContent = emptyList()
+        errorMessage = null
+        try {
+            val content = readFileUseCase(item.path)
+            fileContent = parseMarkDownStringUseCase(content)
+        } catch (e: Exception) {
+            errorMessage = "Failed to load article: ${e.message}"
+            e.printStackTrace()
         }
-        Spacer(modifier = Modifier.weight(1f))
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(backgroundColor()) 
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+            Column(modifier = Modifier.weight(4f)) {
+                
+                if (errorMessage != null) {
+                    Text(
+                        text = errorMessage ?: "Unknown error",
+                        color = androidx.compose.ui.graphics.Color.Red,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                } else {
+                    MarkdownContent(
+                        date = item.date,
+                        content = fileContent,
+                        modifier = Modifier.fillMaxWidth(),
+                        composableItem = item.composableItems
+                    )
+                }
+                
+                // Navigation Buttons (Swapped: Older Left, Newer Right)
+                Column(modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp)) {
+                    
+                     val newerIndex = safeIndex + 1
+                     val olderIndex = safeIndex - 1
+                     
+                     Row(
+                         modifier = Modifier.fillMaxWidth(),
+                         horizontalArrangement = Arrangement.SpaceBetween
+                     ) {
+                         // Older Post (Left) - Lower Index
+                         if (olderIndex in techBlogItems.indices) {
+                             val prevItem = techBlogItems[olderIndex]
+                             NavigationButton(
+                                 label = "Older Post",
+                                 title = prevItem.title,
+                                 onClick = { 
+                                     navigate(prevItem.getDestinationPath()) 
+                                 },
+                                 isLeft = true,
+                                 modifier = Modifier.weight(1f).padding(end = 8.dp)
+                             )
+                         } else {
+                             Spacer(Modifier.weight(1f).padding(end = 8.dp))
+                         }
+
+                         // Newer Post (Right) - Higher Index
+                         if (newerIndex in techBlogItems.indices) {
+                             val nextItem = techBlogItems[newerIndex]
+                             NavigationButton(
+                                 label = "Newer Post",
+                                 title = nextItem.title,
+                                 onClick = { 
+                                     navigate(nextItem.getDestinationPath()) 
+                                 },
+                                 isLeft = false,
+                                 modifier = Modifier.weight(1f).padding(start = 8.dp)
+                             )
+                         } else {
+                             Spacer(Modifier.weight(1f).padding(start = 8.dp))
+                         }
+                     }
+                     
+                     Spacer(modifier = Modifier.height(32.dp))
+                     
+                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                         Text(
+                             text = "Back to List",
+                             modifier = Modifier
+                                 .clickable { navigate(Tech.path) }
+                                 .padding(16.dp),
+                             color = accentTextColor(),
+                             fontWeight = FontWeight.Bold,
+                             fontSize = 16.sp
+                         )
+                     }
+                }
+            }
+            Spacer(modifier = Modifier.weight(1f))
+        }
     }
 }
 
@@ -200,21 +237,22 @@ private fun NavigationButton(
     label: String,
     title: String,
     onClick: () -> Unit,
-    isPrevious: Boolean,
+    isLeft: Boolean,
     modifier: Modifier = Modifier
 ) {
-    Card(
+     Card(
          modifier = modifier.clickable(onClick = onClick),
-         elevation = 2.dp,
+         elevation = 0.dp, 
          shape = RoundedCornerShape(8.dp),
-         backgroundColor = codeBlockBackgroundColor() 
+         backgroundColor = surfaceColor(), 
+         border = BorderStroke(1.dp, borderColor())
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
-            horizontalAlignment = if (isPrevious) Alignment.Start else Alignment.End
+            horizontalAlignment = if (isLeft) Alignment.Start else Alignment.End
         ) {
             Text(
-                text = if (isPrevious) "< $label" else "$label >",
+                text = if (isLeft) "< $label" else "$label >",
                 fontSize = 12.sp,
                 color = secondaryTextColor(),
                 fontWeight = FontWeight.Bold
@@ -223,11 +261,11 @@ private fun NavigationButton(
             Text(
                 text = title,
                 fontSize = 14.sp,
-                color = accentTextColor(),
+                color = accentTextColor(), 
                 fontWeight = FontWeight.Medium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = if (isPrevious) TextAlign.Start else TextAlign.End
+                textAlign = if (isLeft) TextAlign.Start else TextAlign.End
             )
         }
     }

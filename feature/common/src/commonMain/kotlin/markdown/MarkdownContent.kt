@@ -1,5 +1,8 @@
 package markdown
 
+import MarkdownText
+import accentTextColor
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -8,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun MarkdownContent(
@@ -20,7 +24,14 @@ fun MarkdownContent(
     Column(
         modifier = modifier
     ) {
-        Text(date, modifier = Modifier.padding(horizontal = 16.dp))
+        Text(
+            text = date,
+            modifier = Modifier.padding(horizontal = 16.dp),
+            color = accentTextColor(),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         content.forEach {
             when (it) {
                 is MarkdownObject.Header -> MarkdownHeader(header = it)
@@ -39,8 +50,10 @@ fun MarkdownContent(
                 is MarkdownObject.Quote -> Unit
                 is MarkdownObject.BreakLine -> Spacer(modifier = Modifier.height(20.dp))
                 is MarkdownObject.ComposableContent -> {
-                    composableItem[composableItemIndex]()
-                    composableItemIndex++
+                    if (composableItemIndex < composableItem.size) {
+                        composableItem[composableItemIndex]()
+                        composableItemIndex++
+                    }
                 }
             }
         }

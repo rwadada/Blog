@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 fun App(navigate: (String) -> Unit, currentPath: String) {
     val destination = findDestination(currentPath)
     val scrollState = rememberScrollState()
-    LaunchedEffect(destination) {
+    LaunchedEffect(currentPath) {
         scrollState.scrollTo(0)
     }
 

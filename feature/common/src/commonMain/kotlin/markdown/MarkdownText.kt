@@ -1,7 +1,7 @@
-package markdown
-
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -10,13 +10,25 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import accentTextColor
+import surfaceColor
+import markdown.MarkdownObject
 
 @Composable
 fun MarkdownText(item: MarkdownObject.Text) {
     val annotatedString = convertToAnnotatedString(item.text)
-    Text(text = annotatedString)
+    Text(
+        text = annotatedString,
+        color = accentTextColor(),
+        fontSize = 16.sp,
+        lineHeight = 32.sp,
+        modifier = Modifier.padding(vertical = 8.dp)
+    )
 }
 
+@Composable
 private fun convertToAnnotatedString(input: String): AnnotatedString {
     return buildAnnotatedString {
         val spanInfoArray = getSpanIfoArray(input)
@@ -24,8 +36,8 @@ private fun convertToAnnotatedString(input: String): AnnotatedString {
             when (it.type) {
                 SpanType.INLINE_CODE -> withStyle(
                     SpanStyle(
-                        background = Color.LightGray,
-                        color = Color.Red
+                        background = surfaceColor(),
+                        color = accentTextColor()
                     )
                 ) {
                     append(it.text)

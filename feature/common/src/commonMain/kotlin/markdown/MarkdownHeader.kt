@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import textColor
+import accentTextColor
 
 @Composable
 fun MarkdownHeader(header: MarkdownObject.Header) {
@@ -32,13 +32,14 @@ private fun H1(text: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(top = 24.dp, bottom = 8.dp)
     ) {
         Text(
             text = text,
-            color = textColor(),
+            color = accentTextColor(),
             fontWeight = FontWeight.Black,
-            fontSize = 24.sp
+            fontSize = 32.sp,
+            lineHeight = 40.sp
         )
         TitleLine()
     }
@@ -49,13 +50,14 @@ private fun H2(text: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(top = 24.dp, bottom = 8.dp)
     ) {
         Text(
             text = text,
-            color = textColor(),
+            color = accentTextColor(),
             fontWeight = FontWeight.Black,
-            fontSize = 20.sp
+            fontSize = 28.sp,
+            lineHeight = 36.sp
         )
         TitleLine()
     }
@@ -65,12 +67,12 @@ private fun H2(text: String) {
 fun H3(text: String) {
     Text(
         text = text,
-        color = textColor(),
+        color = accentTextColor(),
         fontWeight = FontWeight.Black,
-        fontSize = 18.sp,
+        fontSize = 24.sp,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(top = 16.dp, bottom = 4.dp)
     )
 }
 
@@ -78,12 +80,12 @@ fun H3(text: String) {
 fun H4(text: String) {
     Text(
         text = text,
-        color = textColor(),
+        color = accentTextColor(),
         fontWeight = FontWeight.Black,
-        fontSize = 16.sp,
+        fontSize = 20.sp,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(top = 16.dp, bottom = 4.dp)
     )
 }
 
@@ -91,12 +93,12 @@ fun H4(text: String) {
 fun H5(text: String) {
     Text(
         text = text,
-        color = textColor(),
+        color = accentTextColor(),
         fontWeight = FontWeight.Black,
-        fontSize = 14.sp,
+        fontSize = 18.sp,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(top = 16.dp, bottom = 4.dp)
     )
 }
 
@@ -104,11 +106,11 @@ fun H5(text: String) {
 fun H6(text: String) {
     Text(
         text = text,
-        color = textColor(),
+        color = accentTextColor(),
         fontWeight = FontWeight.Black,
-        fontSize = 12.sp,
+        fontSize = 16.sp,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(top = 16.dp, bottom = 4.dp)
     )
 }
