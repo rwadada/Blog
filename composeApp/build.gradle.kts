@@ -39,6 +39,7 @@ kotlin {
             implementation(project(":feature:common"))
             implementation(project(":feature:home"))
             implementation(project(":feature:tech"))
+            implementation(libs.markdown.renderer)
         }
     }
 }

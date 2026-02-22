@@ -30,7 +30,8 @@ kotlin {
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
-
+            implementation(libs.markdown.renderer)
+            implementation(libs.markdown.coil3)
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
         }
