@@ -43,10 +43,10 @@ val blogItems = listOf(
     ),
     BlogItem(
         path = "article/tech/BlogUpdate2026.md",
-        title = "Compose for Web 最新アップデートの裏側：Markdown・ハイライト・日本語フォント",
+        title = "ブログの構成をアップデートしました 2026",
         date = "2026-02-22",
         type = BlogItem.Type.TECH,
-        summary = "ブログの大幅なアップデート内容をまとめました。Kotlin 2.1とCompose 1.7への刷新、自作Markdownパーサーからの卒業、AST解析による本格的なIDE風シンタックスハイライト、そしてWasmにおける日本語フォントの「豆腐」問題の解決策について解説します。"
+        summary = "ブログ構成のアップデート内容をまとめました。Kotlin 2.1とCompose 1.7への刷新、自作Markdownパーサーからの卒業、AST解析による本格的なIDE風シンタックスハイライト、そしてWasmにおける日本語フォントの「豆腐」問題の解決策について解説します。"
     ),
 )
 

@@ -5,9 +5,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
+import androidx.compose.material.Text
+import androidx.compose.ui.unit.sp
 
 @Composable
-fun Footer(destination: Destination, navigate: (Destination) -> Unit) {
+fun Footer() {
     Row(
         modifier = Modifier
             .background(backgroundColor())
@@ -15,20 +19,11 @@ fun Footer(destination: Destination, navigate: (Destination) -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        MainMenu(
-            destination = destination,
-            onMenuSelected = {
-                navigate(
-                    when (it) {
-                        Menu.HOME -> Home(Home.HomeDestination.HOME)
-                        Menu.TECH -> Tech
-                        Menu.TRAVEL -> Travel
-                        Menu.BOOKS -> Books
-                        Menu.PHOTO -> Photo
-                        Menu.CONTACT -> Contact
-                    }
-                )
-            }
+        Text(
+            text = "© 2026 Ryosuke Wada. Built with Kotlin Wasm.",
+            color = secondaryTextColor(),
+            fontSize = 12.sp,
+            modifier = Modifier.padding(vertical = 24.dp)
         )
     }
 }
