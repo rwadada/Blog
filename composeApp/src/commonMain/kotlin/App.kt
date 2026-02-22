@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 
+import AppTypography
+
 @Composable
 fun App(navigate: (String) -> Unit, currentPath: String) {
     val destination = findDestination(currentPath)
@@ -15,7 +17,7 @@ fun App(navigate: (String) -> Unit, currentPath: String) {
         scrollState.scrollTo(0)
     }
 
-    MaterialTheme {
+    MaterialTheme(typography = AppTypography) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
