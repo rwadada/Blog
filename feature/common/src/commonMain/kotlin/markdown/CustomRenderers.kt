@@ -165,6 +165,11 @@ fun CustomHeader6(content: String, node: ASTNode, style: TextStyle) {
 @Composable
 fun CustomCodeBlock(content: String, node: ASTNode) {
     val isFence = node.type == MarkdownElementTypes.CODE_FENCE
+    val languageName = node.children.find { it.type == org.intellij.markdown.MarkdownTokenTypes.FENCE_LANG }?.let {
+        content.subSequence(it.startOffset, it.endOffset).toString()
+    }
+    val syntaxLanguage = remember(languageName) { languageName?.let { dev.snipme.highlights.model.SyntaxLanguage.getByName(it) } }
+
     val code = if (isFence) {
         if (node.children.size >= 3) {
             val start = node.children[2].startOffset
@@ -179,6 +184,14 @@ fun CustomCodeBlock(content: String, node: ASTNode) {
         } else ""
     }
 
+    val codeHighlights = remember(code) {
+        dev.snipme.highlights.Highlights.Builder()
+            .code(code)
+            .theme(dev.snipme.highlights.model.SyntaxThemes.darcula(darkMode = true))
+            .let { if (syntaxLanguage != null) it.language(syntaxLanguage) else it }
+            .build()
+    }
+
     Column(
         modifier = Modifier
             .background(color = codeBlockBackgroundColor())
@@ -186,70 +199,31 @@ fun CustomCodeBlock(content: String, node: ASTNode) {
             .horizontalScroll(rememberScrollState())
             .padding(20.dp)
     ) {
-        code.split("\n").forEach {
-            val rawText = it.trimStart()
-            val indent = it.length - rawText.length
-            val indentText = " ".repeat(indent)
-            Text(
-                text = buildAnnotatedString {
-                    append(indentText)
-                }.plus(convertToAnnotatedString(rawText)),
-                color = Color.White
-            )
-        }
+        Text(
+            text = buildAnnotatedString {
+                append(codeHighlights.getCode())
+                codeHighlights.getHighlights()
+                    .filterIsInstance<dev.snipme.highlights.model.ColorHighlight>()
+                    .forEach {
+                        addStyle(
+                            SpanStyle(color = Color(it.rgb).copy(alpha = 1f)),
+                            start = it.location.start,
+                            end = it.location.end,
+                        )
+                    }
+                codeHighlights.getHighlights()
+                    .filterIsInstance<dev.snipme.highlights.model.BoldHighlight>()
+                    .forEach {
+                        addStyle(
+                            SpanStyle(fontWeight = FontWeight.Bold),
+                            start = it.location.start,
+                            end = it.location.end,
+                        )
+                    }
+            },
+            color = Color.White
+        )
     }
-}
-
-private enum class TokenType {
-    KEYWORD, // ex) fun
-    FUNCTION_NAME, // ex) main
-    STRING, // ex) "Hello, World!"
-    OTHER // White color for anything else
-}
-
-private data class Token(val text: String, val type: TokenType) {
-    fun getText() = when (type) {
-        TokenType.KEYWORD -> "$text "
-        TokenType.FUNCTION_NAME -> text
-        TokenType.STRING -> "$text "
-        TokenType.OTHER -> "$text "
-    }
-}
-
-private fun getColorForTokenType(type: TokenType): Color {
-    return when (type) {
-        TokenType.KEYWORD -> Color(0xFFD17555) // Orange
-        TokenType.FUNCTION_NAME -> Color(0xFF1DB2DC) // Blue
-        TokenType.STRING -> Color(0xFF3F8D52) // Green
-        TokenType.OTHER -> Color(0xFFFFFFFF) // White
-    }
-}
-
-private fun determineTokenType(text: String): TokenType {
-    return when {
-        text == "fun" -> TokenType.KEYWORD
-        text.matches(Regex("""\b\w+\b""")) -> TokenType.FUNCTION_NAME
-        text.matches(Regex("""".+?"""")) -> TokenType.STRING
-        else -> TokenType.OTHER
-    }
-}
-
-private fun tokenizeCode(code: String): List<Token> {
-    val regex = Regex("""(\bfun\b|\b\w+\b|".+?"|\S)""")
-    val matches = regex.findAll(code)
-    return matches.map { Token(it.value, determineTokenType(it.value)) }.toList()
-}
-
-private fun convertToAnnotatedString(code: String): AnnotatedString {
-    val tokens = tokenizeCode(code)
-    val annotatedString = buildAnnotatedString {
-        for (token in tokens) {
-            withStyle(style = SpanStyle(color = getColorForTokenType(token.type))) {
-                append(token.getText())
-            }
-        }
-    }
-    return annotatedString
 }
 
 

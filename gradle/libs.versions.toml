@@ -24,6 +24,7 @@ compose-material = { module = "org.jetbrains.compose.material:material", version
 compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose" }
 markdown-renderer = { module = "com.mikepenz:multiplatform-markdown-renderer", version.ref = "markdown" }
 markdown-coil3 = { module = "com.mikepenz:multiplatform-markdown-renderer-coil3", version.ref = "markdown" }
+markdown-code = { module = "com.mikepenz:multiplatform-markdown-renderer-code", version.ref = "markdown" }
 
 [plugins]
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }

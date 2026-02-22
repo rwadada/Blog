@@ -32,6 +32,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.markdown.renderer)
             implementation(libs.markdown.coil3)
+            implementation(libs.markdown.code)
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
         }
