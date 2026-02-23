@@ -2,21 +2,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.text.selection.SelectionContainer
 import com.mikepenz.markdown.compose.Markdown
 import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.model.DefaultMarkdownColors
 import com.mikepenz.markdown.model.DefaultMarkdownTypography
 import markdown.*
-import NotoSansJp
 
 @Composable
 fun MarkdownContent(
@@ -36,38 +36,44 @@ fun MarkdownContent(
             )
             Spacer(modifier = Modifier.height(8.dp))
 
-            val parts = content.split("%%%_COMPOSABLE_INJECT_SLOT_%%%")
+            val parts = remember(content) { content.split("%%%_COMPOSABLE_INJECT_SLOT_%%%") }
+
+            val markdownColors = DefaultMarkdownColors(
+                text = accentTextColor(),
+                codeText = accentTextColor(),
+                inlineCodeText = accentTextColor(),
+                linkText = selectedTextColor(),
+                codeBackground = surfaceColor(),
+                inlineCodeBackground = surfaceColor(),
+                dividerColor = secondaryTextColor()
+            )
+            // `MaterialTheme.typography` properties like h1, h2 inside `remember`
+            // should key off of MaterialTheme.typography or not be strictly remembered if theme changes fast,
+            // but for a blog it is fine. It causes less recomposition churn.
+            val typographics = DefaultMarkdownTypography(
+                h1 = MaterialTheme.typography.h1.copy(fontFamily = NotoSansJp),
+                h2 = MaterialTheme.typography.h2.copy(fontFamily = NotoSansJp),
+                h3 = MaterialTheme.typography.h3.copy(fontFamily = NotoSansJp),
+                h4 = MaterialTheme.typography.h4.copy(fontFamily = NotoSansJp),
+                h5 = MaterialTheme.typography.h5.copy(fontFamily = NotoSansJp),
+                h6 = MaterialTheme.typography.h6.copy(fontFamily = NotoSansJp),
+                text = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
+                code = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
+                inlineCode = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
+                quote = MaterialTheme.typography.body2.copy(fontFamily = NotoSansJp),
+                paragraph = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
+                ordered = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
+                bullet = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
+                list = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
+                link = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp)
+            )
 
             parts.forEachIndexed { index, part ->
                 if (part.isNotBlank()) {
                     Markdown(
                         content = part,
-                        colors = DefaultMarkdownColors(
-                            text = accentTextColor(),
-                            codeText = accentTextColor(),
-                            inlineCodeText = accentTextColor(),
-                            linkText = selectedTextColor(),
-                            codeBackground = surfaceColor(),
-                            inlineCodeBackground = surfaceColor(),
-                            dividerColor = secondaryTextColor()
-                        ),
-                        typography = DefaultMarkdownTypography(
-                            h1 = MaterialTheme.typography.h1.copy(fontFamily = NotoSansJp),
-                            h2 = MaterialTheme.typography.h2.copy(fontFamily = NotoSansJp),
-                            h3 = MaterialTheme.typography.h3.copy(fontFamily = NotoSansJp),
-                            h4 = MaterialTheme.typography.h4.copy(fontFamily = NotoSansJp),
-                            h5 = MaterialTheme.typography.h5.copy(fontFamily = NotoSansJp),
-                            h6 = MaterialTheme.typography.h6.copy(fontFamily = NotoSansJp),
-                            text = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
-                            code = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
-                            inlineCode = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
-                            quote = MaterialTheme.typography.body2.copy(fontFamily = NotoSansJp),
-                            paragraph = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
-                            ordered = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
-                            bullet = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
-                            list = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
-                            link = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp)
-                        ),
+                        colors = markdownColors,
+                        typography = typographics,
                         components = markdownComponents(
                             heading1 = { CustomHeader1(it.content, it.node, it.typography.h1) },
                             heading2 = { CustomHeader2(it.content, it.node, it.typography.h2) },
@@ -82,7 +88,7 @@ fun MarkdownContent(
                     )
                 }
 
-                if (index < parts.size - 1 && index < composableItem.size) {
+                if (index < parts.lastIndex && index < composableItem.size) {
                     composableItem[index]()
                 }
             }

@@ -30,7 +30,7 @@ fun TechPage(
 @Composable
 private fun TechList(navigate: (String) -> Unit) {
     // Show Newest First (Reverse of the chronological list)
-    val techBlogItems = blogItems.filter { it.type == BlogItem.Type.TECH }.reversed()
+    val techBlogItems = remember { blogItems.filter { it.type == BlogItem.Type.TECH }.reversed() }
 
     Column(
         modifier = Modifier
@@ -104,7 +104,7 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
     val readFileUseCase = ReadFileUseCase()
     var fileContent by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    val techBlogItems = blogItems.filter { it.type == BlogItem.Type.TECH }
+    val techBlogItems = remember { blogItems.filter { it.type == BlogItem.Type.TECH } }
 
     val safeIndex = if (index in techBlogItems.indices) index else if (techBlogItems.isNotEmpty()) 0 else null
     val item = safeIndex?.let { techBlogItems[it] }
