@@ -48,6 +48,17 @@ val blogItems = listOf(
         type = BlogItem.Type.TECH,
         summary = "ブログ構成のアップデート内容をまとめました。Kotlin 2.1とCompose 1.7への刷新、自作Markdownパーサーからの卒業、AST解析による本格的なIDE風シンタックスハイライト、そしてWasmにおける日本語フォントの「豆腐」問題の解決策について解説します。"
     ),
+    BlogItem(
+        path = "article/tech/ComposeArchitecture202602.md",
+        title = "個人的に思うJetpack Composeにおける画面構成のパターンについて",
+        date = "2026-02-24",
+        type = BlogItem.Type.TECH,
+        summary = "Jetpack Composeにおけるモダンな画面レイアウトアーキテクチャについて考察します。ViewModelの存在意義から、UiStateの切り分け、Route/Screen/Contentでの役割分割、さらにはActionsパターンとUseCaseの活用まで、実践的なベストプラクティスを紹介します。",
+        composableItems = listOf(
+            { PackageStructureDemo() },
+            { ArchitectureDemo() }
+        )
+    ),
 )
 
 fun BlogItem.getDestinationPath(): String {
