@@ -36,6 +36,20 @@ fun HomePage(
                 .padding(24.dp), // Increased padding for modern look
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
+            // Recent Posts Section
+            // RecentPostsContent has its own "Recent Posts" header and cards loop.
+            // We just place it here.
+            RecentPostsContent(
+                modifier = Modifier.fillMaxWidth(),
+                navigateBlogItem = navigateBlogItem
+            )
+
+            // Products Section
+            ProductsContent(
+                modifier = Modifier.fillMaxWidth(),
+                onUrlClick = onUrlClick
+            )
+
             // Bento Grid Row: Profile + Social
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -48,7 +62,7 @@ fun HomePage(
                     elevation = 4.dp,
                     backgroundColor = surfaceColor()
                 ) {
-                    // Padding handled inside content usually, but AboutMeContent handles its own layout. 
+                    // Padding handled inside content usually, but AboutMeContent handles its own layout.
                     // Let's add padding here to contain it nicely.
                     AboutMeContent(modifier = Modifier.padding(24.dp))
                 }
@@ -60,29 +74,12 @@ fun HomePage(
                     elevation = 4.dp,
                     backgroundColor = surfaceColor()
                 ) {
-                   SocialLinkContent(
-                       modifier = Modifier.padding(24.dp),
-                       navigate = navigateSocialLink
-                   )
+                    SocialLinkContent(
+                        modifier = Modifier.padding(24.dp),
+                        navigate = navigateSocialLink
+                    )
                 }
             }
-            
-            // Products Section
-            ProductsContent(
-                modifier = Modifier.fillMaxWidth(),
-                onUrlClick = onUrlClick
-            )
-
-            // Recent Posts Section
-            // RecentPostsContent has its own "Recent Posts" header and cards loop. 
-            // We just place it here.
-            RecentPostsContent(
-                modifier = Modifier.fillMaxWidth(),
-                navigateBlogItem = navigateBlogItem
-            )
-            
-            // Add some bottom spacing
-            Spacer(modifier = Modifier.height(48.dp))
         }
     }
 }

@@ -20,8 +20,7 @@ import org.jetbrains.compose.resources.painterResource
 import blog.feature.home.generated.resources.Res
 import blog.feature.home.generated.resources.facebook
 import blog.feature.home.generated.resources.instagram
-import blog.feature.home.generated.resources.twitter
-import blog.feature.home.generated.resources.youtube
+import blog.feature.home.generated.resources.linkedin
 import blog.feature.home.generated.resources.github
 import blog.feature.home.generated.resources.email
 
@@ -42,42 +41,27 @@ fun SocialLinkContent(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             SocialLinkButton(
-                destination = Home.HomeDestination.FACEBOOK,
-                navigate = navigate,
-                modifier = Modifier.weight(1f)
-            )
-            SocialLinkButton(
-                destination = Home.HomeDestination.INSTAGRAM,
-                navigate = navigate,
-                modifier = Modifier.weight(1f)
-            )
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            SocialLinkButton(
-                destination = Home.HomeDestination.TWITTER,
-                navigate = navigate,
-                modifier = Modifier.weight(1f)
-            )
-            SocialLinkButton(
-                destination = Home.HomeDestination.YOUTUBE,
-                navigate = navigate,
-                modifier = Modifier.weight(1f)
-            )
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            SocialLinkButton(
                 destination = Home.HomeDestination.GITHUB,
                 navigate = navigate,
                 modifier = Modifier.weight(1f)
             )
             SocialLinkButton(
                 destination = Home.HomeDestination.EMAIL,
+                navigate = navigate,
+                modifier = Modifier.weight(1f)
+            )
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            SocialLinkButton(
+                destination = Home.HomeDestination.LINKEDIN,
+                navigate = navigate,
+                modifier = Modifier.weight(1f)
+            )
+            SocialLinkButton(
+                destination = Home.HomeDestination.INSTAGRAM,
                 navigate = navigate,
                 modifier = Modifier.weight(1f)
             )
@@ -105,8 +89,8 @@ private fun SocialLinkButton(
         val icon = destination.displayIcon
         if (icon != null) {
             val colorFilter = when (destination) {
-                Home.HomeDestination.TWITTER,
                 Home.HomeDestination.GITHUB,
+                Home.HomeDestination.LINKEDIN,
                 Home.HomeDestination.EMAIL -> ColorFilter.tint(accentTextColor())
                 else -> null
             }
@@ -129,22 +113,18 @@ private fun SocialLinkButton(
 private val Home.HomeDestination.displayText: String
     get() = when (this) {
         Home.HomeDestination.HOME -> ""
-        Home.HomeDestination.FACEBOOK -> "FACEBOOK"
-        Home.HomeDestination.INSTAGRAM -> "INSTAGRAM"
-        Home.HomeDestination.TWITTER -> "X(TWITTER)"
-        Home.HomeDestination.YOUTUBE -> "YOUTUBE"
-        Home.HomeDestination.GITHUB -> "GITHUB"
-        Home.HomeDestination.EMAIL -> "EMAIL"
+        Home.HomeDestination.INSTAGRAM -> "Instagram"
+        Home.HomeDestination.GITHUB -> "GitHub"
+        Home.HomeDestination.EMAIL -> "Email"
+        Home.HomeDestination.LINKEDIN -> "LinkedIn"
     }
 
 @OptIn(ExperimentalResourceApi::class)
 private val Home.HomeDestination.displayIcon: DrawableResource?
     get() = when(this) {
         Home.HomeDestination.HOME -> null
-        Home.HomeDestination.FACEBOOK -> Res.drawable.facebook
         Home.HomeDestination.INSTAGRAM -> Res.drawable.instagram
-        Home.HomeDestination.TWITTER -> Res.drawable.twitter
-        Home.HomeDestination.YOUTUBE -> Res.drawable.youtube
         Home.HomeDestination.GITHUB -> Res.drawable.github
         Home.HomeDestination.EMAIL -> Res.drawable.email
+        Home.HomeDestination.LINKEDIN -> Res.drawable.linkedin
     }

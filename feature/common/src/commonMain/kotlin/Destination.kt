@@ -17,12 +17,10 @@ class Home(homeDestination: HomeDestination) : Destination {
 
     enum class HomeDestination(val url: String?) {
         HOME(null),
-        FACEBOOK("https://www.facebook.com/ryosuke.wada.925"),
-        INSTAGRAM("https://www.instagram.com/ryosuke.wada.925"),
-        TWITTER("https://twitter.com/r_wadada"),
-        YOUTUBE("https://www.youtube.com/@rw8141"),
         GITHUB("https://github.com/rwadada"),
-        EMAIL("mailto:wadada0420@gmail.com")
+        EMAIL("mailto:wadada0420@gmail.com"),
+        INSTAGRAM("https://www.instagram.com/ryosuke.wada.925"),
+        LINKEDIN("https://www.linkedin.com/in/rwadada0420"),
     }
 }
 
