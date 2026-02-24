@@ -18,7 +18,6 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import blog.feature.home.generated.resources.Res
-import blog.feature.home.generated.resources.facebook
 import blog.feature.home.generated.resources.instagram
 import blog.feature.home.generated.resources.linkedin
 import blog.feature.home.generated.resources.github

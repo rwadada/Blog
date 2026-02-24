@@ -59,6 +59,20 @@ val blogItems = listOf(
             { ArchitectureDemo() }
         )
     ),
+    BlogItem(
+        path = "article/tech/AndroidAuto202602.md",
+        title = "Androidエンジニアが愛車と通信したくてAndroid Autoで遊んでみた話",
+        date = "2026-02-26",
+        type = BlogItem.Type.TECH,
+        summary = "Androidエンジニアが愛車（メルセデス・ベンツ）のデータを取得して車載ディスプレイに表示しようと奮闘した記録。AAOSとAndroid Autoの違いから、Car App Library (CarHardwareManager) を用いた車速データの取得・表示まで、実装例を交えて解説します。",
+        composableItems = listOf(
+            { AndroidAutoComparisonTable() },
+            { AndroidAutoArchitectureComparison() },
+            { AndroidAutoHardwareDataTable() },
+            { AndroidAutoSpeedometerDemo() },
+            { AndroidAutoVideoPlaceholder() }
+        )
+    ),
 )
 
 fun BlogItem.getDestinationPath(): String {
