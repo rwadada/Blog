@@ -30,6 +30,7 @@ fun WasmVideoPlayer(
         element.autoplay = true
         element.loop = true
         element.muted = true
+        element.setAttribute("playsinline", "") // Safari(iOS)等の自動再生用
         element.style.position = "fixed"
         element.style.objectFit = "contain"
         element.style.zIndex = "10" // Make sure it sits above canvas

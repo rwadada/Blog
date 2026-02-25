@@ -31,6 +31,7 @@ actual fun VideoPlayer(
         element.autoplay = true
         element.loop = true
         element.muted = true
+        element.setAttribute("playsinline", "") // Safari(iOS)等の自動再生用
         element.style.position = "fixed"
         element.style.objectFit = "contain"
         setPointerEventsNone(element)
