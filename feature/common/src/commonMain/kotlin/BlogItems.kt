@@ -69,7 +69,9 @@ val blogItems = listOf(
             { AndroidAutoComparisonTable() },
             { AndroidAutoArchitectureComparison() },
             { AndroidAutoHardwareDataTable() },
-            { AndroidAutoSpeedometerDemo() },
+            { AndroidAutoVideoPlayer("images/android_auto_second.mp4") },
+            { AndroidAutoVideoPlayer("images/android_auto_third.mp4") },
+            { AndroidAutoVideoPlayer("images/android_auto_fourth.mp4") },
             { AndroidAutoVideoPlaceholder() }
         )
     ),

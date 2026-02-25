@@ -9,6 +9,11 @@ import androidx.compose.ui.layout.positionInWindow
 import kotlinx.browser.document
 import org.w3c.dom.HTMLVideoElement
 import org.w3c.dom.Element
+import androidx.compose.ui.platform.LocalDensity
+
+private fun setPointerEventsNone(element: Element) {
+    js("element.style.pointerEvents = 'none'")
+}
 
 @Composable
 fun WasmVideoPlayer(
@@ -17,6 +22,7 @@ fun WasmVideoPlayer(
 ) {
     var videoElement by remember { mutableStateOf<HTMLVideoElement?>(null) }
     var bounds by remember { mutableStateOf<Pair<Offset, androidx.compose.ui.unit.IntSize>?>(null) }
+    val density = LocalDensity.current.density
 
     DisposableEffect(videoUrl) {
         val element = document.createElement("video") as HTMLVideoElement
@@ -24,9 +30,10 @@ fun WasmVideoPlayer(
         element.autoplay = true
         element.loop = true
         element.muted = true
-        element.style.position = "absolute"
-        element.style.objectFit = "cover"
+        element.style.position = "fixed"
+        element.style.objectFit = "contain"
         element.style.zIndex = "10" // Make sure it sits above canvas
+        setPointerEventsNone(element)
         
         document.body?.appendChild(element)
         videoElement = element
@@ -36,15 +43,15 @@ fun WasmVideoPlayer(
         }
     }
 
-    LaunchedEffect(bounds) {
+    LaunchedEffect(bounds, density) {
         val currentBounds = bounds
         val element = videoElement
         if (currentBounds != null && element != null) {
             val (position, size) = currentBounds
-            element.style.left = "${position.x}px"
-            element.style.top = "${position.y}px"
-            element.style.width = "${size.width}px"
-            element.style.height = "${size.height}px"
+            element.style.left = "${position.x / density}px"
+            element.style.top = "${position.y / density}px"
+            element.style.width = "${size.width / density}px"
+            element.style.height = "${size.height / density}px"
         }
     }
 
