@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -30,8 +31,8 @@ fun MarkdownContent(
             Text(
                 text = date,
                 modifier = Modifier.padding(horizontal = 16.dp),
-                color = accentTextColor(),
-                fontSize = 14.sp,
+                color = secondaryTextColor().copy(alpha = 0.7f),
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -39,13 +40,13 @@ fun MarkdownContent(
             val parts = remember(content) { content.split("%%%_COMPOSABLE_INJECT_SLOT_%%%") }
 
             val markdownColors = DefaultMarkdownColors(
-                text = accentTextColor(),
+                text = secondaryTextColor(),
                 codeText = accentTextColor(),
-                inlineCodeText = accentTextColor(),
+                inlineCodeText = Color(0xFFE0D080),
                 linkText = selectedTextColor(),
-                codeBackground = surfaceColor(),
-                inlineCodeBackground = surfaceColor(),
-                dividerColor = secondaryTextColor()
+                codeBackground = codeBlockBackgroundColor(),
+                inlineCodeBackground = codeBlockBackgroundColor(),
+                dividerColor = cardBorderColor()
             )
             // `MaterialTheme.typography` properties like h1, h2 inside `remember`
             // should key off of MaterialTheme.typography or not be strictly remembered if theme changes fast,

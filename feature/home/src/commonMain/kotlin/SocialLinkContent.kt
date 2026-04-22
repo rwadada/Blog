@@ -29,12 +29,7 @@ fun SocialLinkContent(
     navigate: (Home.HomeDestination) -> Unit
 ) {
     Column(modifier) {
-        Text(
-            text = "SOCIAL",
-            fontWeight = FontWeight.Bold,
-            color = accentTextColor()
-        )
-        TitleLine()
+        SectionHead(label = "Connect")
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)

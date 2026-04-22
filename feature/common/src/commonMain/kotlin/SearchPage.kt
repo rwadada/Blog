@@ -70,7 +70,7 @@ fun SearchPage(
                 focusedBorderColor = accentTextColor(),
                 unfocusedBorderColor = borderColor()
             ),
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(24.dp),
             singleLine = true
         )
 
@@ -107,7 +107,7 @@ private fun SearchResultItem(item: BlogItem, onClick: () -> Unit) {
             .fillMaxWidth()
             .clickable(onClick = onClick),
         elevation = 4.dp,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(24.dp),
         backgroundColor = surfaceColor()
     ) {
         Column(

@@ -45,7 +45,7 @@ fun Header(
                 painter = painterResource(Res.drawable.logo),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(36.dp)
                     .padding(end = 8.dp),
                 tint = selectableTextColor()
             )
@@ -53,7 +53,8 @@ fun Header(
                 text = "Ryosuke Wada",
                 color = accentTextColor(),
                 fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
+                fontSize = 15.sp,
+                letterSpacing = androidx.compose.ui.unit.TextUnit(-0.01f, androidx.compose.ui.unit.TextUnitType.Em)
             )
             Spacer(modifier = Modifier.weight(3f))
         }

@@ -4,10 +4,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -29,72 +35,74 @@ fun TechPage(
 
 @Composable
 private fun TechList(navigate: (String) -> Unit) {
-    // Show Newest First (Reverse of the chronological list)
     val techBlogItems = remember { blogItems.filter { it.type == BlogItem.Type.TECH }.reversed() }
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(backgroundColor()) // Dark Background
-            .padding(horizontal = 16.dp, vertical = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(backgroundColor())
+            .padding(28.dp)
     ) {
-        Text(
-            text = "Tech Blog",
-            fontSize = 32.sp,
-            fontWeight = FontWeight.ExtraBold,
-            modifier = Modifier.padding(bottom = 32.dp),
-            color = accentTextColor()
-        )
-
-        Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
+        SectionHead(label = "Tech")
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             techBlogItems.forEach { item ->
-                TechListItem(item) {
-                    navigate(item.getDestinationPath())
-                }
+                TechListCard(item) { navigate(item.getDestinationPath()) }
             }
         }
     }
 }
 
 @Composable
-private fun TechListItem(item: BlogItem, onClick: () -> Unit) {
+private fun TechListCard(item: BlogItem, onClick: () -> Unit) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        elevation = 4.dp,
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick),
+        elevation = 0.dp,
         shape = RoundedCornerShape(12.dp),
-        backgroundColor = surfaceColor() // Dark Surface
+        backgroundColor = surfaceColor(),
+        border = BorderStroke(1.dp, cardBorderColor())
     ) {
-        Column(
-            modifier = Modifier.padding(24.dp)
-        ) {
-            Text(
-                text = item.title,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Bold,
-                color = selectedTextColor(),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+        Row {
+            Box(
+                modifier = Modifier
+                    .width(4.dp)
+                    .fillMaxHeight()
+                    .background(item.type.stripColor)
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = item.date,
-                fontSize = 14.sp,
-                color = secondaryTextColor() // Light Grey
-            )
-            if (item.summary.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(12.dp))
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 20.dp, vertical = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
                 Text(
-                    text = item.summary,
-                    fontSize = 16.sp,
-                    color = secondaryTextColor(), // Light Grey
-                    lineHeight = 24.sp,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis
+                    text = item.date,
+                    fontSize = 11.sp,
+                    color = secondaryTextColor().copy(alpha = 0.6f)
                 )
+                Text(
+                    text = item.title,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = accentTextColor(),
+                    lineHeight = 21.sp
+                )
+                if (item.summary.isNotEmpty()) {
+                    Text(
+                        text = item.summary,
+                        fontSize = 12.sp,
+                        color = secondaryTextColor(),
+                        lineHeight = 19.sp,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = null,
+                tint = secondaryTextColor().copy(alpha = 0.5f),
+                modifier = Modifier.padding(horizontal = 12.dp).size(20.dp).align(Alignment.CenterVertically)
+            )
         }
     }
 }
@@ -115,7 +123,6 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
     }
 
     LaunchedEffect(item.path) {
-        // Clear content when path changes to prevent stale content/composable mismatch
         fileContent = ""
         errorMessage = null
         try {
@@ -127,21 +134,51 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(backgroundColor())
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
+    Column(modifier = Modifier.fillMaxWidth().background(backgroundColor())) {
+        Row(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.weight(1f))
-            Column(modifier = Modifier.weight(4f)) {
+            Column(
+                modifier = Modifier
+                    .weight(4f)
+                    .padding(vertical = 32.dp)
+            ) {
+                // Back button
+                Row(
+                    modifier = Modifier
+                        .clickable { navigate(Tech.path) }
+                        .padding(bottom = 24.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        tint = selectedTextColor(),
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Text(
+                        text = "TECH",
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = selectedTextColor(),
+                        letterSpacing = androidx.compose.ui.unit.TextUnit(0.05f, androidx.compose.ui.unit.TextUnitType.Em)
+                    )
+                }
+
+                // Type label
+                Text(
+                    text = item.type.name,
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = item.type.stripColor,
+                    letterSpacing = androidx.compose.ui.unit.TextUnit(0.12f, androidx.compose.ui.unit.TextUnitType.Em),
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
 
                 if (errorMessage != null) {
                     Text(
                         text = errorMessage ?: "Unknown error",
-                        color = androidx.compose.ui.graphics.Color.Red,
+                        color = Color.Red,
                         modifier = Modifier.padding(16.dp)
                     )
                 } else {
@@ -153,9 +190,8 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
                     )
                 }
 
-                // Navigation Buttons (Swapped: Older Left, Newer Right)
-                Column(modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp)) {
-
+                // Navigation
+                Column(modifier = Modifier.fillMaxWidth().padding(top = 48.dp)) {
                     val newerIndex = safeIndex + 1
                     val olderIndex = safeIndex - 1
 
@@ -163,51 +199,31 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        // Older Post (Left) - Lower Index
                         if (olderIndex in techBlogItems.indices) {
                             val prevItem = techBlogItems[olderIndex]
                             NavigationButton(
                                 label = "Older Post",
                                 title = prevItem.title,
-                                onClick = {
-                                    navigate(prevItem.getDestinationPath())
-                                },
+                                onClick = { navigate(prevItem.getDestinationPath()) },
                                 isLeft = true,
                                 modifier = Modifier.weight(1f).padding(end = 8.dp)
                             )
                         } else {
-                            Spacer(Modifier.weight(1f).padding(end = 8.dp))
+                            Spacer(Modifier.weight(1f))
                         }
 
-                        // Newer Post (Right) - Higher Index
                         if (newerIndex in techBlogItems.indices) {
                             val nextItem = techBlogItems[newerIndex]
                             NavigationButton(
                                 label = "Newer Post",
                                 title = nextItem.title,
-                                onClick = {
-                                    navigate(nextItem.getDestinationPath())
-                                },
+                                onClick = { navigate(nextItem.getDestinationPath()) },
                                 isLeft = false,
                                 modifier = Modifier.weight(1f).padding(start = 8.dp)
                             )
                         } else {
-                            Spacer(Modifier.weight(1f).padding(start = 8.dp))
+                            Spacer(Modifier.weight(1f))
                         }
-                    }
-
-                    Spacer(modifier = Modifier.height(32.dp))
-
-                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                        Text(
-                            text = "Back to List",
-                            modifier = Modifier
-                                .clickable { navigate(Tech.path) }
-                                .padding(16.dp),
-                            color = accentTextColor(),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
-                        )
                     }
                 }
             }
@@ -227,24 +243,45 @@ private fun NavigationButton(
     Card(
         modifier = modifier.clickable(onClick = onClick),
         elevation = 0.dp,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(10.dp),
         backgroundColor = surfaceColor(),
-        border = BorderStroke(1.dp, borderColor())
+        border = BorderStroke(1.dp, cardBorderColor())
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = if (isLeft) Alignment.Start else Alignment.End
         ) {
-            Text(
-                text = if (isLeft) "< $label" else "$label >",
-                fontSize = 12.sp,
-                color = secondaryTextColor(),
-                fontWeight = FontWeight.Bold
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = if (isLeft) Arrangement.Start else Arrangement.End
+            ) {
+                if (isLeft) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        contentDescription = null,
+                        tint = secondaryTextColor(),
+                        modifier = Modifier.size(14.dp)
+                    )
+                }
+                Text(
+                    text = label,
+                    fontSize = 11.sp,
+                    color = secondaryTextColor(),
+                    fontWeight = FontWeight.Bold
+                )
+                if (!isLeft) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = null,
+                        tint = secondaryTextColor(),
+                        modifier = Modifier.size(14.dp)
+                    )
+                }
+            }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = title,
-                fontSize = 14.sp,
+                fontSize = 13.sp,
                 color = accentTextColor(),
                 fontWeight = FontWeight.Medium,
                 maxLines = 1,

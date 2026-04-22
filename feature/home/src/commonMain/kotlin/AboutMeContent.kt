@@ -16,12 +16,7 @@ fun AboutMeContent(modifier: Modifier) {
     Column(
         modifier = modifier
     ) {
-        Text(
-            text = "ABOUT ME",
-            fontWeight = FontWeight.Bold,
-            color = accentTextColor()
-        )
-        TitleLine()
+        SectionHead(label = "About Me")
         Row(Modifier.fillMaxWidth()) {
             ProfilePhoto(
                 modifier = Modifier

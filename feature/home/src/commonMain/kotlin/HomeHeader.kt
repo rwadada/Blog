@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -31,63 +30,68 @@ fun HomeHeader() {
     Box(
         Modifier
             .fillMaxWidth()
-            .height(500.dp), // Increased height for Hero effect
-        contentAlignment = Alignment.Center
+            .height(280.dp)
     ) {
         Image(
             painter = painterResource(Res.drawable.header),
             contentDescription = null,
-            modifier = Modifier
-                .fillMaxSize(),
-            contentScale = ContentScale.Crop // Crop to fill appropriately
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
         )
 
-        // Dark Gradient Overlay for readability
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     Brush.verticalGradient(
                         colors = listOf(
-                            Color.Black.copy(alpha = 0.2f),
-                            Color.Black.copy(alpha = 0.6f)
+                            Color.Black.copy(alpha = 0.15f),
+                            Color(0xFF121212).copy(alpha = 0.82f)
                         )
                     )
                 )
         )
 
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(start = 36.dp, end = 36.dp, bottom = 32.dp)
         ) {
+            Text(
+                text = "Personal Blog",
+                style = TextStyle(
+                    color = Color(0xFFFF842A).copy(alpha = 0.9f),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = androidx.compose.ui.unit.TextUnit(0.14f, androidx.compose.ui.unit.TextUnitType.Em)
+                )
+            )
             Text(
                 text = "Ryosuke Wada",
                 style = TextStyle(
                     color = Color.White,
-                    fontSize = 48.sp,
-                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 42.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = androidx.compose.ui.unit.TextUnit(-0.02f, androidx.compose.ui.unit.TextUnitType.Em),
                     shadow = Shadow(
-                        color = Color.Black.copy(alpha = 0.8f),
-                        offset = Offset(4f, 4f),
-                        blurRadius = 8f
+                        color = Color.Black.copy(alpha = 0.6f),
+                        offset = Offset(0f, 2f),
+                        blurRadius = 16f
                     )
-                ),
-                textAlign = TextAlign.Center
+                )
             )
             Text(
                 text = "Exploring the World through Books, Nature, and Android",
                 style = TextStyle(
-                    color = Color.White.copy(alpha = 0.9f),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Medium,
+                    color = Color.White.copy(alpha = 0.7f),
+                    fontSize = 14.sp,
                     shadow = Shadow(
-                        color = Color.Black.copy(alpha = 0.8f),
-                        offset = Offset(2f, 2f),
-                        blurRadius = 4f
+                        color = Color.Black.copy(alpha = 0.5f),
+                        offset = Offset(0f, 1f),
+                        blurRadius = 6f
                     )
                 ),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 16.dp)
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
     }
