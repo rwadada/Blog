@@ -1,12 +1,12 @@
 [versions]
-compose = "1.7.0"
-compose-plugin = "1.7.0"
-kotlin = "2.1.0"
+compose = "1.11.1"
+compose-plugin = "1.11.1"
+kotlin = "2.4.0"
 kit = "0.0.8"
-coil3 = "3.0.0-rc01"
-ktor = "3.0.1"
-coroutines = "1.9.0"
-markdown = "0.27.0"
+coil3 = "3.5.0"
+ktor = "3.5.1"
+coroutines = "1.11.0"
+markdown = "0.43.0"
 
 [libraries]
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
