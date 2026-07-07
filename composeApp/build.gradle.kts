@@ -27,11 +27,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
 
             implementation(project(":feature:common"))
             implementation(project(":feature:home"))
