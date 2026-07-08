@@ -20,7 +20,7 @@ import blog.feature.common.generated.resources.search
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun SearchPage(
-    navigate: (String) -> Unit
+    navigate: (Route) -> Unit
 ) {
     var searchQuery by remember { mutableStateOf("") }
     
@@ -92,7 +92,7 @@ fun SearchPage(
             ) {
                 filteredItems.forEach { item ->
                     SearchResultItem(item = item) {
-                        navigate(item.getDestinationPath())
+                        navigate(item.route)
                     }
                 }
             }

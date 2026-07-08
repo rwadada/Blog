@@ -23,10 +23,17 @@ import blog.feature.home.generated.resources.linkedin
 import blog.feature.home.generated.resources.github
 import blog.feature.home.generated.resources.email
 
+enum class SocialLink(val url: String) {
+    GITHUB("https://github.com/rwadada"),
+    EMAIL("mailto:wadada0420@gmail.com"),
+    INSTAGRAM("https://www.instagram.com/ryosuke.wada.925"),
+    LINKEDIN("https://www.linkedin.com/in/rwadada0420"),
+}
+
 @Composable
 fun SocialLinkContent(
     modifier: Modifier,
-    navigate: (Home.HomeDestination) -> Unit
+    onUrlClick: (String) -> Unit
 ) {
     Column(modifier) {
         SectionHead(label = "Connect")
@@ -35,13 +42,13 @@ fun SocialLinkContent(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             SocialLinkButton(
-                destination = Home.HomeDestination.GITHUB,
-                navigate = navigate,
+                link = SocialLink.GITHUB,
+                onUrlClick = onUrlClick,
                 modifier = Modifier.weight(1f)
             )
             SocialLinkButton(
-                destination = Home.HomeDestination.EMAIL,
-                navigate = navigate,
+                link = SocialLink.EMAIL,
+                onUrlClick = onUrlClick,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -50,13 +57,13 @@ fun SocialLinkContent(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             SocialLinkButton(
-                destination = Home.HomeDestination.LINKEDIN,
-                navigate = navigate,
+                link = SocialLink.LINKEDIN,
+                onUrlClick = onUrlClick,
                 modifier = Modifier.weight(1f)
             )
             SocialLinkButton(
-                destination = Home.HomeDestination.INSTAGRAM,
-                navigate = navigate,
+                link = SocialLink.INSTAGRAM,
+                onUrlClick = onUrlClick,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -66,59 +73,48 @@ fun SocialLinkContent(
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun SocialLinkButton(
-    destination: Home.HomeDestination,
-    navigate: (Home.HomeDestination) -> Unit,
+    link: SocialLink,
+    onUrlClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .height(44.dp)
             .clickable {
-                navigate(destination)
+                onUrlClick(link.url)
             }
             .padding(horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        val icon = destination.displayIcon
-        if (icon != null) {
-            val colorFilter = when (destination) {
-                Home.HomeDestination.GITHUB,
-                Home.HomeDestination.LINKEDIN,
-                Home.HomeDestination.EMAIL -> ColorFilter.tint(accentTextColor())
-                else -> null
-            }
-            Image(
-                painter = painterResource(icon),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(24.dp),
-                colorFilter = colorFilter
-            )
-        }
+        Image(
+            painter = painterResource(link.displayIcon),
+            contentDescription = null,
+            modifier = Modifier
+                .size(24.dp),
+            colorFilter = ColorFilter.tint(accentTextColor())
+        )
         Text(
-            text = destination.displayText,
+            text = link.displayText,
             color = accentTextColor(),
             fontWeight = FontWeight.Bold
         )
     }
 }
 
-private val Home.HomeDestination.displayText: String
+private val SocialLink.displayText: String
     get() = when (this) {
-        Home.HomeDestination.HOME -> ""
-        Home.HomeDestination.INSTAGRAM -> "Instagram"
-        Home.HomeDestination.GITHUB -> "GitHub"
-        Home.HomeDestination.EMAIL -> "Email"
-        Home.HomeDestination.LINKEDIN -> "LinkedIn"
+        SocialLink.INSTAGRAM -> "Instagram"
+        SocialLink.GITHUB -> "GitHub"
+        SocialLink.EMAIL -> "Email"
+        SocialLink.LINKEDIN -> "LinkedIn"
     }
 
 @OptIn(ExperimentalResourceApi::class)
-private val Home.HomeDestination.displayIcon: DrawableResource?
-    get() = when(this) {
-        Home.HomeDestination.HOME -> null
-        Home.HomeDestination.INSTAGRAM -> Res.drawable.instagram
-        Home.HomeDestination.GITHUB -> Res.drawable.github
-        Home.HomeDestination.EMAIL -> Res.drawable.email
-        Home.HomeDestination.LINKEDIN -> Res.drawable.linkedin
+private val SocialLink.displayIcon: DrawableResource
+    get() = when (this) {
+        SocialLink.INSTAGRAM -> Res.drawable.instagram
+        SocialLink.GITHUB -> Res.drawable.github
+        SocialLink.EMAIL -> Res.drawable.email
+        SocialLink.LINKEDIN -> Res.drawable.linkedin
     }

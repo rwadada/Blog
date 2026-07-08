@@ -37,6 +37,7 @@ kotlin {
             implementation(project(":feature:home"))
             implementation(project(":feature:tech"))
             implementation(libs.markdown.renderer)
+            implementation(libs.navigation.compose)
         }
     }
 }
