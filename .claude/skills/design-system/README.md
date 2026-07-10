@@ -43,18 +43,18 @@ Personal blog of **Ryosuke Wada** (`rwadada`), a Japanese Android/Kotlin enginee
 ## Visual Foundations
 
 ### Colors
+Source of truth: `feature/common/src/commonMain/kotlin/Colors.kt`.
+
 | Token | Hex | Usage |
 |---|---|---|
-| `--bg` | `#333333` | App background, header, footer |
-| `--surface` | `#404040` | Cards on dark background |
-| `--content-bg` | `#FFFFFF` | Article / main content area |
-| `--fg` | `#FFFFFF` | Primary text on dark |
-| `--fg-secondary` | `#CCCCCC` | Secondary text on dark, footer |
-| `--fg-muted` | `#CCCCCC` | Unselected menu items |
-| `--accent` | `#FF842A` | Selected nav, heading underlines, loading dots, borders |
-| `--text-dark` | `#333333` | Body text on white content |
-| `--border` | `#CCCCCC` | Dividers |
-| `--code-bg` | `#17181A` | Code block background (near-black) |
+| `--bg` | `#1E1E1E` | App background, header, footer (`backgroundColor()`) |
+| `--surface` | `#252525` | Cards on dark background (`surfaceColor()`) |
+| `--fg` | `#F0F0F0` | Primary/emphasized text (`accentTextColor()`) |
+| `--fg-secondary` | `#AAAAAA` | Body/secondary text (`secondaryTextColor()`) |
+| `--fg-muted` | `#999999` | Unselected menu items (`selectableTextColor()`) |
+| `--accent` | `#FF842A` | Selected nav, heading underlines, loading dots, links (`selectedTextColor()` / `borderAccentColor()`) |
+| `--card-border` | `#FFFFFF` @ 7% | 1dp card borders (`cardBorderColor()`) |
+| `--code-bg` | `#141416` | Code block background (`codeBlockBackgroundColor()`) |
 
 ### Typography
 - **Primary font:** Noto Sans JP (Regular 400, Bold 700, Black 900) — bundled as `.woff` in `fonts/`
@@ -63,22 +63,22 @@ Personal blog of **Ryosuke Wada** (`rwadada`), a Japanese Android/Kotlin enginee
 - **No serif. No decorative fonts.** The entire site uses one typeface.
 
 ### Backgrounds
-- App shell: solid `#333333` dark gray — no gradients, no images
-- Hero header: full-bleed photograph (`header.jpg`) with a vertical dark gradient overlay (`rgba(0,0,0,0.2)` → `rgba(0,0,0,0.6)`)
-- Content area: solid white `#FFFFFF`
-- Cards on dark: `#404040` surface
+- App shell: solid `#1E1E1E` dark gray — no gradients, no images
+- Hero header: full-bleed photograph (`header.jpg`), 280dp tall, with a vertical dark gradient overlay (`rgba(0,0,0,0.15)` → `#121212` @ 82%)
+- Content area: same dark `#1E1E1E` — the whole site is dark, articles included
+- Cards on dark: `#252525` surface
 
 ### Layout
 - **Header:** 50dp height, horizontal row — logo + name left, nav menu center, search icon right
-- **Hero:** 500dp tall, full-bleed image with centered name + tagline text
+- **Hero:** 280dp tall, full-bleed image with name + tagline anchored bottom-left
 - **Home bento grid:** Recent Posts · Products · Profile+Social row with weighted Card layout (`weight(2f)` + `weight(1f)`)
 - **Content max-width:** stretches to fill; horizontal padding `24dp` on home, `16dp` on header
 
 ### Cards
-- `RoundedCornerShape(24dp)` — heavily rounded
-- `elevation = 4dp`
-- Background `#404040` (surface)
-- No border strokes on cards; separation via elevation shadow
+- `RoundedCornerShape(12dp)` (10dp for small prev/next navigation cards)
+- `elevation = 0dp` — flat
+- Background `#252525` (surface)
+- Separation via `BorderStroke(1dp, cardBorderColor())` — a subtle white @ 7% border, not shadows
 
 ### Heading style (in articles)
 - H1: large bold text + **orange underline** (`TitleLine()` component — orange accent line below heading)
