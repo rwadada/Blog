@@ -6,10 +6,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,18 +19,18 @@ import usecase.ReadFileUseCase
 
 @Composable
 fun TechPage(
-    index: Int?,
-    navigate: (String) -> Unit,
+    slug: String?,
+    navigate: (Route) -> Unit,
 ) {
-    if (index == null) {
+    if (slug == null) {
         TechList(navigate)
     } else {
-        TechDetail(index, navigate)
+        TechDetail(slug, navigate)
     }
 }
 
 @Composable
-private fun TechList(navigate: (String) -> Unit) {
+private fun TechList(navigate: (Route) -> Unit) {
     val techBlogItems = remember { blogItems.filter { it.type == BlogItem.Type.TECH }.reversed() }
 
     Column(
@@ -46,7 +42,7 @@ private fun TechList(navigate: (String) -> Unit) {
         SectionHead(label = "Tech")
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             techBlogItems.forEach { item ->
-                TechListCard(item) { navigate(item.getDestinationPath()) }
+                TechListCard(item) { navigate(item.route) }
             }
         }
     }
@@ -98,7 +94,7 @@ private fun TechListCard(item: BlogItem, onClick: () -> Unit) {
                 }
             }
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                imageVector = KeyboardArrowRightIcon,
                 contentDescription = null,
                 tint = secondaryTextColor().copy(alpha = 0.5f),
                 modifier = Modifier.padding(horizontal = 12.dp).size(20.dp).align(Alignment.CenterVertically)
@@ -108,13 +104,14 @@ private fun TechListCard(item: BlogItem, onClick: () -> Unit) {
 }
 
 @Composable
-private fun TechDetail(index: Int, navigate: (String) -> Unit) {
+private fun TechDetail(slug: String, navigate: (Route) -> Unit) {
     val readFileUseCase = ReadFileUseCase()
     var fileContent by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val techBlogItems = remember { blogItems.filter { it.type == BlogItem.Type.TECH } }
 
-    val safeIndex = if (index in techBlogItems.indices) index else if (techBlogItems.isNotEmpty()) 0 else null
+    val matchedIndex = techBlogItems.indexOfFirst { it.slug == slug }
+    val safeIndex = if (matchedIndex >= 0) matchedIndex else if (techBlogItems.isNotEmpty()) 0 else null
     val item = safeIndex?.let { techBlogItems[it] }
 
     if (item == null) {
@@ -145,13 +142,13 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
                 // Back button
                 Row(
                     modifier = Modifier
-                        .clickable { navigate(Tech.path) }
+                        .clickable { navigate(Route.Tech) }
                         .padding(bottom = 24.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        imageVector = ArrowBackIcon,
                         contentDescription = null,
                         tint = selectedTextColor(),
                         modifier = Modifier.size(14.dp)
@@ -204,7 +201,7 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
                             NavigationButton(
                                 label = "Older Post",
                                 title = prevItem.title,
-                                onClick = { navigate(prevItem.getDestinationPath()) },
+                                onClick = { navigate(prevItem.route) },
                                 isLeft = true,
                                 modifier = Modifier.weight(1f).padding(end = 8.dp)
                             )
@@ -217,7 +214,7 @@ private fun TechDetail(index: Int, navigate: (String) -> Unit) {
                             NavigationButton(
                                 label = "Newer Post",
                                 title = nextItem.title,
-                                onClick = { navigate(nextItem.getDestinationPath()) },
+                                onClick = { navigate(nextItem.route) },
                                 isLeft = false,
                                 modifier = Modifier.weight(1f).padding(start = 8.dp)
                             )
@@ -257,7 +254,7 @@ private fun NavigationButton(
             ) {
                 if (isLeft) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        imageVector = KeyboardArrowLeftIcon,
                         contentDescription = null,
                         tint = secondaryTextColor(),
                         modifier = Modifier.size(14.dp)
@@ -271,7 +268,7 @@ private fun NavigationButton(
                 )
                 if (!isLeft) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        imageVector = KeyboardArrowRightIcon,
                         contentDescription = null,
                         tint = secondaryTextColor(),
                         modifier = Modifier.size(14.dp)

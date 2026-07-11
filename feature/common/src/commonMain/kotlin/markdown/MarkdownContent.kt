@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -41,12 +43,10 @@ fun MarkdownContent(
 
             val markdownColors = DefaultMarkdownColors(
                 text = secondaryTextColor(),
-                codeText = accentTextColor(),
-                inlineCodeText = Color(0xFFE0D080),
-                linkText = selectedTextColor(),
                 codeBackground = codeBlockBackgroundColor(),
                 inlineCodeBackground = codeBlockBackgroundColor(),
-                dividerColor = cardBorderColor()
+                dividerColor = cardBorderColor(),
+                tableBackground = codeBlockBackgroundColor()
             )
             // `MaterialTheme.typography` properties like h1, h2 inside `remember`
             // should key off of MaterialTheme.typography or not be strictly remembered if theme changes fast,
@@ -59,14 +59,15 @@ fun MarkdownContent(
                 h5 = MaterialTheme.typography.h5.copy(fontFamily = NotoSansJp),
                 h6 = MaterialTheme.typography.h6.copy(fontFamily = NotoSansJp),
                 text = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
-                code = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
-                inlineCode = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace),
+                code = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace, color = accentTextColor()),
+                inlineCode = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.Monospace, color = Color(0xFFE0D080)),
                 quote = MaterialTheme.typography.body2.copy(fontFamily = NotoSansJp),
                 paragraph = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
                 ordered = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
                 bullet = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
                 list = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp),
-                link = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp)
+                textLink = TextLinkStyles(style = SpanStyle(color = selectedTextColor())),
+                table = MaterialTheme.typography.body1.copy(fontFamily = NotoSansJp)
             )
 
             parts.forEachIndexed { index, part ->

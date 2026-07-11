@@ -24,8 +24,8 @@ import blog.feature.common.generated.resources.search
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun Header(
-    destination: Destination,
-    navigate: (Destination) -> Unit
+    selectedMenu: Menu?,
+    navigate: (Route) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -37,7 +37,7 @@ fun Header(
     ) {
         Row(
             modifier = Modifier.weight(1f).clickable {
-                navigate(Home(Home.HomeDestination.HOME))
+                navigate(Route.Home)
             },
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -58,21 +58,10 @@ fun Header(
             )
             Spacer(modifier = Modifier.weight(3f))
         }
-        MainMenu(destination = destination, onMenuSelected = {
-            navigate(
-                when (it) {
-                    Menu.HOME -> Home(Home.HomeDestination.HOME)
-                    Menu.TECH -> Tech
-                    Menu.TRAVEL -> Travel
-                    Menu.BOOKS -> Books
-                    Menu.PHOTO -> Photo
-                    Menu.CONTACT -> Contact
-                }
-            )
-        })
+        MainMenu(selectedMenu = selectedMenu, onMenuSelected = { navigate(it.route) })
         IconButton(
             onClick = {
-                navigate(Search)
+                navigate(Route.Search)
             }
         ) {
             Icon(

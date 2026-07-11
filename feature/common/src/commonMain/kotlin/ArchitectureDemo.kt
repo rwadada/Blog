@@ -1,19 +1,10 @@
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,7 +40,7 @@ fun ArchitectureDemo() {
                 delay(300)
             }
             activeEventLayer = null
-            
+
             // ViewModel updates state
             stateVersion++
             delay(200)
@@ -170,13 +161,13 @@ private fun ArchitectureLayer(
 ) {
     val isEventActive = level == activeEventLayer
     val isStateActive = level == activeStateLayer
-    
+
     val bgColor = when {
         isEventActive -> Color(0xFFE57373) // Red-ish for Action Up
         isStateActive -> Color(0xFF64B5F6) // Blue-ish for State Down
         else -> Color.Transparent
     }
-    
+
     val borderColorAnimated = when {
         isEventActive -> Color(0xFFFFCDD2)
         isStateActive -> Color(0xFFBBDEFB)
@@ -208,7 +199,7 @@ private fun ArchitectureLayer(
                     )
                 }
             }
-            
+
             Text(
                 text = name,
                 fontSize = 14.sp,
@@ -217,7 +208,7 @@ private fun ArchitectureLayer(
                 textAlign = TextAlign.Center,
                 modifier = Modifier.weight(2f)
             )
-            
+
             Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterEnd) {
                 if (isEventActive) {
                     Text(
@@ -229,7 +220,7 @@ private fun ArchitectureLayer(
                 }
             }
         }
-        
+
         content()
     }
 }

@@ -13,23 +13,21 @@ kotlin {
         browser{
             commonWebpackConfig {
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
-                        add(project.projectDir.path)
-                        add(project.projectDir.path + "/commonMain/")
-                        add(project.projectDir.path + "/wasmJsMain/")
-                    }
+                    // Serve sources to debug inside browser
+                    static(project.projectDir.path)
+                    static(project.projectDir.path + "/commonMain/")
+                    static(project.projectDir.path + "/wasmJsMain/")
                 }
             }
         }
     }
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
 
             implementation(project(":feature:common"))
         }

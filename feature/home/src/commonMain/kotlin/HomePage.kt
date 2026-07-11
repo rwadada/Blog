@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomePage(
-    navigateSocialLink: (Home.HomeDestination) -> Unit,
     navigateBlogItem: (BlogItem) -> Unit,
     onUrlClick: (String) -> Unit
 ) {
@@ -63,7 +62,7 @@ fun HomePage(
                 ) {
                     SocialLinkContent(
                         modifier = Modifier.padding(22.dp),
-                        navigate = navigateSocialLink
+                        onUrlClick = onUrlClick
                     )
                 }
             }

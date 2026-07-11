@@ -5,8 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MainMenu(destination: Destination, onMenuSelected: (Menu) -> Unit) {
-    val selectedMenu = Menu.findMenu(destination)
+fun MainMenu(selectedMenu: Menu?, onMenuSelected: (Menu) -> Unit) {
     Row {
         Menu.entries.forEach {
             val textColor = if (it == selectedMenu) selectedTextColor() else selectableTextColor()
@@ -23,16 +22,15 @@ enum class Menu {
     TRAVEL,
     BOOKS,
     PHOTO,
-    CONTACT;
-    companion object {
-        fun findMenu(destination: Destination) = when(destination) {
-            is Home -> HOME
-            is Tech -> TECH
-            is Travel -> TRAVEL
-            is Books -> BOOKS
-            is Photo -> PHOTO
-            is Contact -> CONTACT
-            is Search -> null
-        }
-    }
+    CONTACT
 }
+
+val Menu.route: Route
+    get() = when (this) {
+        Menu.HOME -> Route.Home
+        Menu.TECH -> Route.Tech
+        Menu.TRAVEL -> Route.Travel
+        Menu.BOOKS -> Route.Books
+        Menu.PHOTO -> Route.Photo
+        Menu.CONTACT -> Route.Contact
+    }

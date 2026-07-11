@@ -77,13 +77,12 @@ val blogItems = listOf(
     ),
 )
 
-fun BlogItem.getDestinationPath(): String {
-    val destination = when (type) {
-        BlogItem.Type.TECH -> Tech
-        BlogItem.Type.TRAVEL -> Travel
-        BlogItem.Type.BOOKS -> Books
-    }
-    val index = blogItems.filter { it.type == type }.indexOf(this)
+val BlogItem.slug: String
+    get() = path.substringAfterLast('/').removeSuffix(".md")
 
-    return destination.path + "/$index"
-}
+val BlogItem.route: Route
+    get() = when (type) {
+        BlogItem.Type.TECH -> Route.TechArticle(slug)
+        BlogItem.Type.TRAVEL -> Route.Travel
+        BlogItem.Type.BOOKS -> Route.Books
+    }
