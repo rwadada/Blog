@@ -6,10 +6,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -98,7 +94,7 @@ private fun TechListCard(item: BlogItem, onClick: () -> Unit) {
                 }
             }
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                imageVector = KeyboardArrowRightIcon,
                 contentDescription = null,
                 tint = secondaryTextColor().copy(alpha = 0.5f),
                 modifier = Modifier.padding(horizontal = 12.dp).size(20.dp).align(Alignment.CenterVertically)
@@ -152,7 +148,7 @@ private fun TechDetail(slug: String, navigate: (Route) -> Unit) {
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        imageVector = ArrowBackIcon,
                         contentDescription = null,
                         tint = selectedTextColor(),
                         modifier = Modifier.size(14.dp)
@@ -258,7 +254,7 @@ private fun NavigationButton(
             ) {
                 if (isLeft) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        imageVector = KeyboardArrowLeftIcon,
                         contentDescription = null,
                         tint = secondaryTextColor(),
                         modifier = Modifier.size(14.dp)
@@ -272,7 +268,7 @@ private fun NavigationButton(
                 )
                 if (!isLeft) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        imageVector = KeyboardArrowRightIcon,
                         contentDescription = null,
                         tint = secondaryTextColor(),
                         modifier = Modifier.size(14.dp)
