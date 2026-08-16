@@ -75,6 +75,16 @@ val blogItems = listOf(
             { AndroidAutoVideoPlaceholder() }
         )
     ),
+    BlogItem(
+        path = "article/tech/AiCodingBottleneck2026.md",
+        title = "AIコーディングツールとの付き合い方、現時点での個人的な所感",
+        date = "2026-08-16",
+        type = BlogItem.Type.TECH,
+        summary = "AIコーディングツールの進化に伴う「丸投げ」の代償、人間が方針を指示するサポーター利用のコスパ、順調に実装が走るなかで新たに浮かび上がった「ボトルネックの移動」という本質的な課題について考察します。",
+        composableItems = listOf(
+            { RoleDivisionDiagram() }
+        )
+    ),
 )
 
 val BlogItem.slug: String
