@@ -85,6 +85,16 @@ val blogItems = listOf(
             { RoleDivisionDiagram() }
         )
     ),
+    BlogItem(
+        path = "article/tech/DetourNetworkDebugTool202609.md",
+        title = "detourって名前のネットワークデバッグツール作った話",
+        date = "2026-09-13",
+        type = BlogItem.Type.TECH,
+        summary = "既存のHTTPデバッグプロキシに感じていた不満から、ターミナルファースト＋リアルタイムWebダッシュボードのDetourを個人開発した経緯を紹介します。Rule EngineによるMock/Route/Rewrite/Breakpoint、Rule Profiles、LAN公開など主要機能の解説と、Claude Codeを使ったAIコーディング実践の記録も交えています。",
+        composableItems = listOf(
+            { RuleEngineDemo() }
+        )
+    ),
 )
 
 val BlogItem.slug: String
