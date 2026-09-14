@@ -87,7 +87,7 @@ val blogItems = listOf(
     ),
     BlogItem(
         path = "article/tech/DetourNetworkDebugTool202609.md",
-        title = "detourって名前のネットワークデバッグツール作った話",
+        title = "ネットワークデバッグツール作った話",
         date = "2026-09-13",
         type = BlogItem.Type.TECH,
         summary = "既存のHTTPデバッグプロキシに感じていた不満から、ターミナルファースト＋リアルタイムWebダッシュボードのDetourを個人開発した経緯を紹介します。Rule EngineによるMock/Route/Rewrite/Breakpoint、Rule Profiles、LAN公開、ダッシュボードでのgRPCデコードなど主要機能の解説、v1.0到達までの経緯、Claude Codeを使ったAIコーディング実践の記録も交えています。",
