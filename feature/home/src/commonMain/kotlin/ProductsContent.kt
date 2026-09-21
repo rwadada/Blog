@@ -31,6 +31,13 @@ fun ProductsContent(
         SectionHead(label = "Products")
 
         ProductItem(
+            name = "Detour",
+            description = "A terminal-first HTTP debugging proxy for mobile and web, with a real-time web dashboard.",
+            url = "https://detour.rwadada.com/",
+            onClick = onUrlClick
+        )
+
+        ProductItem(
             name = "Flow",
             description = "A productivity tool that helps you stay focused and manage your tasks efficiently.",
             url = "https://flow.rwadada.com/",
