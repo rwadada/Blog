@@ -34,7 +34,7 @@ private val ruleActions = listOf(
         label = "route",
         color = Color(0xFF81C784),
         description = "宛先ホスト/ポートを差し替えて中継",
-        result = "staging.api → localhost:3000 へリダイレクト"
+        result = "staging.api -> localhost:3000 へリダイレクト"
     ),
     RuleAction(
         label = "rewrite",
@@ -46,7 +46,7 @@ private val ruleActions = listOf(
         label = "breakpoint",
         color = Color(0xFFE57373),
         description = "その場で一時停止し、手動で編集して再開",
-        result = "ダッシュボード上で body を編集 → Resume"
+        result = "ダッシュボード上で body を編集 -> Resume"
     ),
     RuleAction(
         label = "マッチなし",
@@ -109,29 +109,29 @@ fun RuleEngineDemo() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             PipelineStage(
-                title = "① Client Request",
+                title = "1. Client Request",
                 subtitle = "GET https://api.example.com/users/1",
                 active = stepIndex == 1,
                 activeColor = borderAccentColor()
             )
             PipelineArrow()
             PipelineStage(
-                title = "② Rule Engine — 上から順にマッチ判定",
+                title = "2. Rule Engine - 上から順にマッチ判定",
                 subtitle = "match: { method, url } を rules.json 内で順に評価",
                 active = stepIndex == 1,
                 activeColor = borderAccentColor()
             )
             PipelineArrow()
             PipelineStage(
-                title = "③ Action: ${currentAction.label}",
+                title = "3. Action: ${currentAction.label}",
                 subtitle = currentAction.description,
                 active = stepIndex == 2,
                 activeColor = currentAction.color
             )
             PipelineArrow()
             PipelineStage(
-                title = "④ Result",
-                subtitle = if (stepIndex == 3) currentAction.result else "—",
+                title = "4. Result",
+                subtitle = if (stepIndex == 3) currentAction.result else "-",
                 active = stepIndex == 3,
                 activeColor = currentAction.color
             )
@@ -203,7 +203,7 @@ private fun PipelineStage(
 @Composable
 private fun PipelineArrow() {
     Text(
-        text = "↓",
+        text = "|",
         fontSize = 18.sp,
         color = secondaryTextColor(),
         modifier = Modifier.padding(vertical = 2.dp)
