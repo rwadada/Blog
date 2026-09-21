@@ -74,28 +74,18 @@ detour start
 
 ---
 
-## 付録: Detour の主要機能・CLIオプション一覧
+## 付録: コマンド・オプション概要
 
-### 1. サポートされているCLIコマンド
-- `detour start`: プロキシサーバーおよびWebダッシュボードを起動
-- `detour setup`: 対象環境（mac, android, ios, linux, windows）へのCA証明書配置・プロキシ設定の自動ナビゲーション
-- `detour doctor`: CA証明書の信頼状況やプロキシ接続設定の正常性を自動診断
-- `detour cleanup`: `setup` で適用したプロキシ設定の解除・復元
-- `detour cert export`: 生成されたローカルCA証明書（`ca.pem`）の出力
+全機能やオプションの詳細は [GitHub README](https://github.com/rwadada/Detour) を参照してください。
 
-### 2. `detour start` の主なオプション
-- `--port <number>`: プロキシが接続を受け付けるポート（デフォルト: `8080`）
-- `--dashboard-port <number>`: Webダッシュボードのポート（デフォルト: `9080`）
-- `--rules <path>`: ルール定義ファイル（`rules.json`）の指定（変更の自動リロードに対応）
-- `--lan`: `0.0.0.0` にバインドし、同じWi-Fiネットワーク上の他デバイスやメンバーからのアクセスを許可
-- `--proto <path>`: 指定した `.proto` スキーマファイルに基づき、gRPC通信（`application/grpc*`）をダッシュボード・ログ上で自動デコード
-- `--dump <summary|full|file>`: コンソール・ファイルへのログ出力レベル。ヘッダー内の認証情報（`Authorization` 等）は自動的に `[REDACTED]` にマスク
-- `--persist [path]`: ログ履歴を SQLite データベース（`~/.detour/history.db`）へ自動保存し、過去通信の検索を可能にする
-- `--upstream-proxy <url>`: 社内ネットワーク等の上位プロキシ（HTTP/HTTPS/SOCKS4/SOCKS5）を経由して送信
+- **主要コマンド**:
+  - `detour start`: プロキシ＆Webダッシュボードの起動
+  - `detour setup`: 対象デバイスへの証明書・プロキシ設定の自動案内
+  - `detour doctor`: プロキシ接続や証明書信頼の状態を自動診断
+  - `detour cleanup`: `setup` で適用したプロキシ設定の復元
 
-### 3. Webダッシュボードの主要機能
-- **リアルタイム・ストリーミング**: WebSocket による高速なログ反映と、仮想化テーブル（`@tanstack/react-virtual`）による数千件のログの滑らかな閲覧
-- **Timing ウォーターフォール表示**: 各リクエストの処理時間を DNS, TCP, TLS, TTFB, レスポンス転送 に分解して視覚化
-- **Focus（ホストフィルタ）**: ワイルドカード（例: `*.example.com`）でインターセプト対象ホストを限定
-- **Throttle（ネットワークシミュレーション）**: 帯域制限（3G模擬等）、レイテンシ追加、パケットロス発生のテスト
-- **送信元プロセスの特定**: macOS 環境において、リクエストを発行したローカルプロセス名を一覧・詳細に表示
+- **主な `detour start` オプション**:
+  - `--lan`: 同じWi-Fi上の他デバイスからダッシュボード/プロキシへ接続可能にする
+  - `--proto <path>`: `.proto` スキーマを読み込み gRPC 通信を自動デコード
+  - `--dump <summary|full|file>`: 詳細ログ出力（認証ヘッダー等は自動マスク）
+  - `--persist`: ログ履歴を SQLite に保存し過去ログを検索可能にする
