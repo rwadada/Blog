@@ -95,6 +95,13 @@ val blogItems = listOf(
             { RuleEngineDemo() }
         )
     ),
+    BlogItem(
+        path = "article/tech/DeterministicGuardrails202611.md",
+        title = "AI DLCやSkillを作り込むのをやめて、決定論的ガードレールに全振りした話",
+        date = "2026-11-20",
+        type = BlogItem.Type.TECH,
+        summary = "AI-DLCやLLM Wiki、作り込んだSkillに感じた違和感から、アーキテクチャテストや仕様書自動生成といった決定論的ガードレールに振り切った開発運用（Tripolioの実例）を紹介します。さらにAWS公式のawslabs/aidlc-workflows (v2.11.4) と同一条件で4ステップの比較実験を行い、所要時間・トークン消費量・ドキュメント量・並列マージ時のコンフリクトを実測データで比較しました。"
+    ),
 )
 
 val BlogItem.slug: String
