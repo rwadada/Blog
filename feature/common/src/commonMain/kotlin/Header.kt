@@ -25,7 +25,8 @@ import blog.feature.common.generated.resources.search
 @Composable
 fun Header(
     selectedMenu: Menu?,
-    navigate: (Route) -> Unit
+    navigate: (Route) -> Unit,
+    onOpenUrl: (String) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -58,7 +59,16 @@ fun Header(
             )
             Spacer(modifier = Modifier.weight(3f))
         }
-        MainMenu(selectedMenu = selectedMenu, onMenuSelected = { navigate(it.route) })
+        MainMenu(
+            selectedMenu = selectedMenu,
+            onMenuSelected = { menu ->
+                if (menu == Menu.CONTACT) {
+                    onOpenUrl("https://rwadada.com/#contact")
+                } else {
+                    navigate(menu.route)
+                }
+            }
+        )
         IconButton(
             onClick = {
                 navigate(Route.Search)
