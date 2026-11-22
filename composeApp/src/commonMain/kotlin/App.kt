@@ -65,7 +65,8 @@ fun App(
                 // Sticky Header at the top
                 Header(
                     selectedMenu = selectedMenu,
-                    navigate = { route -> navController.navigate(route) { launchSingleTop = true } }
+                    navigate = { route -> navController.navigate(route) { launchSingleTop = true } },
+                    onOpenUrl = onOpenUrl
                 )
 
                 // Scrollable content area
