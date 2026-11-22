@@ -91,7 +91,10 @@ E2E テストのシナリオが参照している画面文言・識別子がア�
 
 ## 3. 比較実験: AWS公式 AI-DLC vs 決定論的ガードレール
 
-「そうは言っても本当に差が出るの？」を確かめるため、実際に同じミニアプリで比較実験を行いました。
+「そうは言っても本当に差が出るの？」を確かめるため、実際に同じミニアプリで比較実験を行いました。  
+実験に使用したリポジトリと全ブランチの成果物は GitHub に公開しています。ブランチを切り替えることで、共通スターター（`main`）・A案（`pattern-a` / `pattern-a-4b`）・B案（`pattern-b`）の実コードとマージコンフリクトをそのまま手元で再現できます。
+
+- **検証リポジトリ**: [rwadada/ai-dlc-vs-deterministic-exp](https://github.com/rwadada/ai-dlc-vs-deterministic-exp)（[A案: `pattern-a`](https://github.com/rwadada/ai-dlc-vs-deterministic-exp/tree/pattern-a) / [B案: `pattern-b`](https://github.com/rwadada/ai-dlc-vs-deterministic-exp/tree/pattern-b)）
 
 ### 実験条件（フェアネス重視）
 
